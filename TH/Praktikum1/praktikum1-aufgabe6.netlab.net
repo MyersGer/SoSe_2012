@@ -482,19 +482,6 @@
       </inscription>
     </arc>
     <arc id = "a35"
-         source = "p4"
-         target = "t15">
-      <graphics>
-        <position x = "860"
-                  y = "220"/>
-        <position x = "840"
-                  y = "220"/>
-      </graphics>
-    </arc>
-    <arc id = "a36"
-         source = "t15"
-         target = "p5"/>
-    <arc id = "a37"
          source = "p12"
          target = "t16">
       <inscription>
@@ -505,29 +492,53 @@
         </graphics>
       </inscription>
     </arc>
-    <arc id = "a38"
+    <arc id = "a36"
          source = "t11"
          target = "p12"/>
+    <arc id = "a37"
+         source = "p10"
+         target = "t15">
+      <graphics>
+        <position x = "820"
+                  y = "860"/>
+        <position x = "1040"
+                  y = "860"/>
+        <position x = "1040"
+                  y = "160"/>
+      </graphics>
+    </arc>
+    <arc id = "a38"
+         source = "p4"
+         target = "t16">
+      <graphics>
+        <position x = "860"
+                  y = "460"/>
+        <position x = "800"
+                  y = "460"/>
+      </graphics>
+    </arc>
     <arc id = "a39"
          source = "t16"
-         target = "p9">
+         target = "p10">
       <graphics>
         <position x = "800"
                   y = "660"/>
-        <position x = "640"
+        <position x = "860"
                   y = "660"/>
+        <position x = "860"
+                  y = "780"/>
       </graphics>
     </arc>
     <arc id = "a40"
-         source = "p10"
-         target = "t16">
+         source = "t15"
+         target = "p4">
       <graphics>
-        <position x = "820"
-                  y = "660"/>
-        <position x = "860"
-                  y = "660"/>
-        <position x = "860"
-                  y = "600"/>
+        <position x = "840"
+                  y = "240"/>
+        <position x = "880"
+                  y = "240"/>
+        <position x = "880"
+                  y = "360"/>
       </graphics>
     </arc>
     <toolspecific tool = "netlab"
@@ -636,7 +647,7 @@ Sende 1</text>
             description = "true"
             colored_invariants = "true">
         <scrollerposition x = "0"
-                          y = "98"/>
+                          y = "0"/>
       </view>
       <calculation xmlns = "http://www.irt.rwth-aachen.de/download/netlab"
                    autocalculate_invariants = "false"
