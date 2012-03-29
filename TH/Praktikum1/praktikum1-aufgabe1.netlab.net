@@ -2,7 +2,7 @@
   <net id = "n1"
        type = "http://www.irt.rwth-aachen.de/download/netlab/pntd/pnsmNet">
     <name>
-      <text>sendenBisAntwort</text>
+      <text>praktikum1-aufgabe1.netlab</text>
     </name>
     <place id = "p1">
       <graphics>
@@ -267,7 +267,7 @@
          target = "t2">
       <graphics>
         <position x = "380"
-                  y = "120"/>
+                  y = "80"/>
       </graphics>
     </arc>
     <arc id = "a4"
@@ -298,7 +298,7 @@
          target = "t6">
       <graphics>
         <position x = "860"
-                  y = "320"/>
+                  y = "280"/>
       </graphics>
     </arc>
     <arc id = "a11"
@@ -347,7 +347,7 @@
          target = "t13">
       <graphics>
         <position x = "820"
-                  y = "740"/>
+                  y = "700"/>
       </graphics>
     </arc>
     <arc id = "a24"
@@ -371,7 +371,7 @@
          source = "t14"
          target = "p3">
       <graphics>
-        <position x = "80"
+        <position x = "60"
                   y = "660"/>
         <position x = "60"
                   y = "80"/>
@@ -435,7 +435,7 @@
         <comment id = "c1">
           <graphics>
             <position x = "380"
-                      y = "80"/>
+                      y = "60"/>
           </graphics>
           <text>Sender
 Sende 0</text>
@@ -482,8 +482,7 @@ Best&#228;tige 0</text>
                       y = "820"/>
           </graphics>
           <text>Empf&#228;nger
-Best&#228;tige 1
-</text>
+Best&#228;tige 1</text>
         </comment>
         <comment id = "c8">
           <graphics>
@@ -506,6 +505,20 @@ Sende 1</text>
                       y = "580"/>
           </graphics>
           <text>Nirvana</text>
+        </comment>
+        <comment id = "c11">
+          <graphics>
+            <position x = "520"
+                      y = "460"/>
+          </graphics>
+          <text>Verlustbehaftetes Kabel</text>
+        </comment>
+        <comment id = "c12">
+          <graphics>
+            <position x = "620"
+                      y = "740"/>
+          </graphics>
+          <text>Verlustbehaftetes Kabel</text>
         </comment>
       </comments>
       <view xmlns = "http://www.irt.rwth-aachen.de/download/netlab"
