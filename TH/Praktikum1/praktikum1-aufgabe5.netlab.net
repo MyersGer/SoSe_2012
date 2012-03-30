@@ -6,8 +6,22 @@
     </name>
     <place id = "p1">
       <graphics>
-        <position x = "380"
+        <position x = "360"
                   y = "200"/>
+        <dimension x = "40"
+                   y = "40"/>
+      </graphics>
+      <initialMarking>
+        <text>1</text>
+      </initialMarking>
+      <capacity>
+        <text>1</text>
+      </capacity>
+    </place>
+    <place id = "p2">
+      <graphics>
+        <position x = "840"
+                  y = "400"/>
         <dimension x = "40"
                    y = "40"/>
       </graphics>
@@ -18,24 +32,10 @@
         <text>1</text>
       </capacity>
     </place>
-    <place id = "p2">
-      <graphics>
-        <position x = "160"
-                  y = "80"/>
-        <dimension x = "40"
-                   y = "40"/>
-      </graphics>
-      <initialMarking>
-        <text>1</text>
-      </initialMarking>
-      <capacity>
-        <text>1</text>
-      </capacity>
-    </place>
     <place id = "p3">
       <graphics>
-        <position x = "860"
-                  y = "400"/>
+        <position x = "660"
+                  y = "280"/>
         <dimension x = "40"
                    y = "40"/>
       </graphics>
@@ -48,8 +48,8 @@
     </place>
     <place id = "p4">
       <graphics>
-        <position x = "680"
-                  y = "280"/>
+        <position x = "620"
+                  y = "120"/>
         <dimension x = "40"
                    y = "40"/>
       </graphics>
@@ -62,8 +62,8 @@
     </place>
     <place id = "p5">
       <graphics>
-        <position x = "160"
-                  y = "380"/>
+        <position x = "880"
+                  y = "60"/>
         <dimension x = "40"
                    y = "40"/>
       </graphics>
@@ -71,13 +71,13 @@
         <text>0</text>
       </initialMarking>
       <capacity>
-        <text>1</text>
+        <text>3</text>
       </capacity>
     </place>
     <place id = "p6">
       <graphics>
-        <position x = "340"
-                  y = "620"/>
+        <position x = "1000"
+                  y = "140"/>
         <dimension x = "40"
                    y = "40"/>
       </graphics>
@@ -85,13 +85,13 @@
         <text>0</text>
       </initialMarking>
       <capacity>
-        <text>1</text>
+        <text>32767</text>
       </capacity>
     </place>
     <place id = "p7">
       <graphics>
-        <position x = "520"
-                  y = "500"/>
+        <position x = "340"
+                  y = "700"/>
         <dimension x = "40"
                    y = "40"/>
       </graphics>
@@ -104,8 +104,22 @@
     </place>
     <place id = "p8">
       <graphics>
+        <position x = "820"
+                  y = "900"/>
+        <dimension x = "40"
+                   y = "40"/>
+      </graphics>
+      <initialMarking>
+        <text>1</text>
+      </initialMarking>
+      <capacity>
+        <text>1</text>
+      </capacity>
+    </place>
+    <place id = "p9">
+      <graphics>
         <position x = "640"
-                  y = "700"/>
+                  y = "780"/>
         <dimension x = "40"
                    y = "40"/>
       </graphics>
@@ -116,24 +130,38 @@
         <text>1</text>
       </capacity>
     </place>
-    <place id = "p9">
+    <place id = "p10">
       <graphics>
-        <position x = "820"
-                  y = "820"/>
+        <position x = "600"
+                  y = "620"/>
         <dimension x = "40"
                    y = "40"/>
       </graphics>
       <initialMarking>
-        <text>1</text>
+        <text>0</text>
       </initialMarking>
       <capacity>
         <text>1</text>
       </capacity>
     </place>
-    <place id = "p10">
+    <place id = "p11">
       <graphics>
-        <position x = "560"
-                  y = "80"/>
+        <position x = "860"
+                  y = "560"/>
+        <dimension x = "40"
+                   y = "40"/>
+      </graphics>
+      <initialMarking>
+        <text>0</text>
+      </initialMarking>
+      <capacity>
+        <text>3</text>
+      </capacity>
+    </place>
+    <place id = "p12">
+      <graphics>
+        <position x = "980"
+                  y = "640"/>
         <dimension x = "40"
                    y = "40"/>
       </graphics>
@@ -144,31 +172,17 @@
         <text>32767</text>
       </capacity>
     </place>
-    <place id = "p11">
-      <graphics>
-        <position x = "720"
-                  y = "600"/>
-        <dimension x = "40"
-                   y = "40"/>
-      </graphics>
-      <initialMarking>
-        <text>0</text>
-      </initialMarking>
-      <capacity>
-        <text>20</text>
-      </capacity>
-    </place>
     <transition id = "t1">
       <graphics>
-        <position x = "240"
-                  y = "240"/>
+        <position x = "220"
+                  y = "280"/>
         <dimension x = "40"
                    y = "40"/>
       </graphics>
     </transition>
     <transition id = "t2">
       <graphics>
-        <position x = "460"
+        <position x = "440"
                   y = "80"/>
         <dimension x = "40"
                    y = "40"/>
@@ -176,71 +190,71 @@
     </transition>
     <transition id = "t3">
       <graphics>
-        <position x = "260"
-                  y = "80"/>
+        <position x = "760"
+                  y = "280"/>
         <dimension x = "40"
                    y = "40"/>
       </graphics>
     </transition>
     <transition id = "t4">
       <graphics>
-        <position x = "780"
-                  y = "280"/>
+        <position x = "500"
+                  y = "200"/>
         <dimension x = "40"
                    y = "40"/>
       </graphics>
     </transition>
     <transition id = "t5">
       <graphics>
-        <position x = "520"
-                  y = "220"/>
+        <position x = "620"
+                  y = "60"/>
         <dimension x = "40"
                    y = "40"/>
       </graphics>
     </transition>
     <transition id = "t6">
       <graphics>
-        <position x = "220"
-                  y = "500"/>
+        <position x = "920"
+                  y = "260"/>
         <dimension x = "40"
                    y = "40"/>
       </graphics>
     </transition>
     <transition id = "t7">
       <graphics>
-        <position x = "420"
-                  y = "500"/>
+        <position x = "1000"
+                  y = "260"/>
         <dimension x = "40"
                    y = "40"/>
       </graphics>
     </transition>
     <transition id = "t8">
       <graphics>
-        <position x = "680"
-                  y = "500"/>
+        <position x = "200"
+                  y = "780"/>
         <dimension x = "40"
                    y = "40"/>
       </graphics>
     </transition>
     <transition id = "t9">
       <graphics>
-        <position x = "640"
-                  y = "600"/>
+        <position x = "420"
+                  y = "580"/>
         <dimension x = "40"
                    y = "40"/>
       </graphics>
     </transition>
     <transition id = "t10">
       <graphics>
-        <position x = "480"
-                  y = "620"/>
+        <position x = "740"
+                  y = "780"/>
         <dimension x = "40"
                    y = "40"/>
       </graphics>
     </transition>
     <transition id = "t11">
       <graphics>
-        <position x = "740"
+        <position x = "480"
                   y = "700"/>
         <dimension x = "40"
                    y = "40"/>
@@ -248,256 +262,326 @@
     </transition>
     <transition id = "t12">
       <graphics>
-        <position x = "200"
-                  y = "660"/>
+        <position x = "600"
+                  y = "560"/>
         <dimension x = "40"
                    y = "40"/>
       </graphics>
     </transition>
     <transition id = "t13">
       <graphics>
-        <position x = "700"
-                  y = "140"/>
+        <position x = "900"
+                  y = "760"/>
         <dimension x = "40"
                    y = "40"/>
       </graphics>
     </transition>
     <transition id = "t14">
       <graphics>
-        <position x = "800"
-                  y = "600"/>
-        <dimension x = "40"
-                   y = "40"/>
-      </graphics>
-    </transition>
-    <transition id = "t15">
-      <graphics>
-        <position x = "700"
-                  y = "80"/>
+        <position x = "980"
+                  y = "760"/>
         <dimension x = "40"
                    y = "40"/>
       </graphics>
     </transition>
     <arc id = "a1"
          source = "p1"
-         target = "t2">
+         target = "t2"
+         type = "read">
       <graphics>
-        <position x = "380"
+        <position x = "360"
                   y = "80"/>
       </graphics>
     </arc>
     <arc id = "a2"
-         source = "p1"
-         target = "t1">
+         source = "p2"
+         target = "t3"
+         type = "read">
       <graphics>
-        <position x = "300"
-                  y = "220"/>
+        <position x = "840"
+                  y = "280"/>
       </graphics>
     </arc>
     <arc id = "a3"
-         source = "p2"
-         target = "t3"/>
-    <arc id = "a4"
          source = "t3"
-         target = "p1"/>
-    <arc id = "a5"
-         source = "t4"
          target = "p3"/>
+    <arc id = "a4"
+         source = "p3"
+         target = "t1"/>
+    <arc id = "a5"
+         source = "p1"
+         target = "t1">
+      <graphics>
+        <position x = "360"
+                  y = "280"/>
+      </graphics>
+    </arc>
     <arc id = "a6"
          source = "p3"
          target = "t4">
       <graphics>
-        <position x = "860"
+        <position x = "500"
                   y = "280"/>
       </graphics>
     </arc>
     <arc id = "a7"
-         source = "t4"
-         target = "p4"/>
-    <arc id = "a8"
-         source = "p4"
-         target = "t1"/>
-    <arc id = "a9"
          source = "p4"
          target = "t5"/>
-    <arc id = "a10"
-         source = "t1"
-         target = "p5"/>
-    <arc id = "a11"
-         source = "t6"
-         target = "p6"/>
-    <arc id = "a12"
+    <arc id = "a8"
          source = "t7"
          target = "p6"/>
-    <arc id = "a13"
-         source = "p6"
+    <arc id = "a9"
+         source = "p4"
          target = "t7">
       <graphics>
-        <position x = "340"
-                  y = "540"/>
+        <position x = "960"
+                  y = "120"/>
+        <position x = "960"
+                  y = "240"/>
+      </graphics>
+    </arc>
+    <arc id = "a10"
+         source = "t2"
+         target = "p4">
+      <graphics>
+        <position x = "540"
+                  y = "80"/>
+        <position x = "540"
+                  y = "120"/>
+      </graphics>
+    </arc>
+    <arc id = "a11"
+         source = "p2"
+         target = "t7"
+         type = "read">
+      <graphics>
+        <position x = "1000"
+                  y = "400"/>
+      </graphics>
+    </arc>
+    <arc id = "a12"
+         source = "t6"
+         target = "p2">
+      <graphics>
+        <position x = "920"
+                  y = "340"/>
+      </graphics>
+    </arc>
+    <arc id = "a13"
+         source = "p4"
+         target = "t6">
+      <graphics>
+        <position x = "660"
+                  y = "160"/>
+        <position x = "920"
+                  y = "160"/>
       </graphics>
     </arc>
     <arc id = "a14"
-         source = "t7"
-         target = "p7"/>
+         source = "p5"
+         target = "t5">
+      <inscription>
+        <text>3</text>
+        <graphics>
+          <offset x = "0"
+                  y = "-10"/>
+        </graphics>
+      </inscription>
+    </arc>
     <arc id = "a15"
-         source = "p7"
-         target = "t8"/>
-    <arc id = "a16"
-         source = "p7"
-         target = "t9"/>
-    <arc id = "a17"
-         source = "p8"
-         target = "t10"/>
-    <arc id = "a18"
-         source = "t11"
-         target = "p8"/>
-    <arc id = "a19"
-         source = "p9"
-         target = "t11">
+         source = "t7"
+         target = "p5">
       <graphics>
-        <position x = "820"
-                  y = "700"/>
+        <position x = "1060"
+                  y = "260"/>
+        <position x = "1060"
+                  y = "60"/>
       </graphics>
     </arc>
-    <arc id = "a20"
-         source = "t11"
-         target = "p9"/>
-    <arc id = "a21"
-         source = "p6"
-         target = "t12">
+    <arc id = "a16"
+         source = "t6"
+         target = "p5">
       <graphics>
-        <position x = "260"
-                  y = "640"/>
+        <position x = "920"
+                  y = "340"/>
+        <position x = "1060"
+                  y = "340"/>
+        <position x = "1060"
+                  y = "60"/>
+      </graphics>
+    </arc>
+    <arc id = "a17"
+         source = "p7"
+         target = "t9"
+         type = "read">
+      <graphics>
+        <position x = "340"
+                  y = "580"/>
+      </graphics>
+    </arc>
+    <arc id = "a18"
+         source = "p8"
+         target = "t10"
+         type = "read">
+      <graphics>
+        <position x = "820"
+                  y = "780"/>
+      </graphics>
+    </arc>
+    <arc id = "a19"
+         source = "t10"
+         target = "p9"/>
+    <arc id = "a20"
+         source = "p9"
+         target = "t8"/>
+    <arc id = "a21"
+         source = "p7"
+         target = "t8">
+      <graphics>
+        <position x = "340"
+                  y = "780"/>
       </graphics>
     </arc>
     <arc id = "a22"
-         source = "p8"
-         target = "t12"/>
-    <arc id = "a23"
-         source = "p5"
-         target = "t6"/>
-    <arc id = "a24"
-         source = "t12"
-         target = "p2">
+         source = "p9"
+         target = "t11">
       <graphics>
-        <position x = "60"
-                  y = "660"/>
-        <position x = "60"
-                  y = "80"/>
+        <position x = "480"
+                  y = "780"/>
       </graphics>
     </arc>
+    <arc id = "a23"
+         source = "p10"
+         target = "t12"/>
+    <arc id = "a24"
+         source = "t14"
+         target = "p12"/>
     <arc id = "a25"
-         source = "t8"
-         target = "p9">
+         source = "p10"
+         target = "t14">
       <graphics>
-        <position x = "900"
-                  y = "500"/>
-        <position x = "900"
-                  y = "820"/>
+        <position x = "940"
+                  y = "620"/>
+        <position x = "940"
+                  y = "740"/>
       </graphics>
     </arc>
     <arc id = "a26"
-         source = "p3"
-         target = "t8">
+         source = "t9"
+         target = "p10">
       <graphics>
-        <position x = "620"
-                  y = "400"/>
-        <position x = "620"
-                  y = "480"/>
+        <position x = "520"
+                  y = "580"/>
+        <position x = "520"
+                  y = "620"/>
       </graphics>
     </arc>
     <arc id = "a27"
-         source = "p10"
-         target = "t13">
-      <inscription>
-        <text>5</text>
-        <graphics>
-          <offset x = "0"
-                  y = "10"/>
-        </graphics>
-      </inscription>
+         source = "p8"
+         target = "t14"
+         type = "read">
+      <graphics>
+        <position x = "980"
+                  y = "900"/>
+      </graphics>
     </arc>
     <arc id = "a28"
-         source = "p11"
-         target = "t14">
-      <inscription>
-        <text>20</text>
-        <graphics>
-          <offset x = "0"
-                  y = "10"/>
-        </graphics>
-      </inscription>
-    </arc>
-    <arc id = "a29"
-         source = "t9"
-         target = "p11"/>
-    <arc id = "a30"
-         source = "t14"
+         source = "t13"
          target = "p8">
       <graphics>
-        <position x = "800"
-                  y = "660"/>
+        <position x = "900"
+                  y = "840"/>
+      </graphics>
+    </arc>
+    <arc id = "a29"
+         source = "p10"
+         target = "t13">
+      <graphics>
         <position x = "640"
+                  y = "660"/>
+        <position x = "900"
                   y = "660"/>
       </graphics>
     </arc>
+    <arc id = "a30"
+         source = "p11"
+         target = "t12">
+      <inscription>
+        <text>3</text>
+        <graphics>
+          <offset x = "0"
+                  y = "-10"/>
+        </graphics>
+      </inscription>
+    </arc>
     <arc id = "a31"
-         source = "p9"
-         target = "t14">
+         source = "t14"
+         target = "p11">
       <graphics>
-        <position x = "820"
-                  y = "660"/>
-        <position x = "860"
-                  y = "660"/>
-        <position x = "860"
-                  y = "600"/>
+        <position x = "1040"
+                  y = "760"/>
+        <position x = "1040"
+                  y = "560"/>
       </graphics>
     </arc>
     <arc id = "a32"
-         source = "p10"
-         target = "t15">
+         source = "t13"
+         target = "p11">
       <graphics>
-        <position x = "620"
-                  y = "80"/>
+        <position x = "900"
+                  y = "840"/>
+        <position x = "1040"
+                  y = "840"/>
+        <position x = "1040"
+                  y = "560"/>
       </graphics>
     </arc>
     <arc id = "a33"
-         source = "t15"
-         target = "p3">
+         source = "t8"
+         target = "p1">
       <graphics>
-        <position x = "920"
-                  y = "140"/>
-        <position x = "920"
-                  y = "400"/>
+        <position x = "140"
+                  y = "780"/>
+        <position x = "140"
+                  y = "200"/>
       </graphics>
     </arc>
     <arc id = "a34"
-         source = "p9"
-         target = "t15">
+         source = "t1"
+         target = "p7">
       <graphics>
-        <position x = "820"
-                  y = "860"/>
-        <position x = "1040"
-                  y = "860"/>
-        <position x = "1040"
-                  y = "80"/>
+        <position x = "220"
+                  y = "700"/>
       </graphics>
     </arc>
     <arc id = "a35"
-         source = "t2"
-         target = "p10">
-      <inscription>
-        <text>2</text>
-        <graphics>
-          <offset x = "0"
-                  y = "10"/>
-        </graphics>
-      </inscription>
+         source = "p8"
+         target = "t6">
+      <graphics>
+        <position x = "820"
+                  y = "980"/>
+        <position x = "1100"
+                  y = "980"/>
+        <position x = "1100"
+                  y = "440"/>
+        <position x = "960"
+                  y = "440"/>
+        <position x = "960"
+                  y = "260"/>
+      </graphics>
     </arc>
     <arc id = "a36"
-         source = "t2"
-         target = "p1"/>
+         source = "p2"
+         target = "t13">
+      <graphics>
+        <position x = "840"
+                  y = "500"/>
+        <position x = "820"
+                  y = "500"/>
+        <position x = "820"
+                  y = "760"/>
+      </graphics>
+    </arc>
     <toolspecific tool = "netlab"
                   version = "1.8">
       <developer_release version = "1,8,0,0"
@@ -509,7 +593,7 @@
       <comments>
         <comment id = "c1">
           <graphics>
-            <position x = "380"
+            <position x = "360"
                       y = "60"/>
           </graphics>
           <text>Sender
@@ -517,83 +601,99 @@ Sende 0</text>
         </comment>
         <comment id = "c2">
           <graphics>
-            <position x = "560"
-                      y = "40"/>
+            <position x = "720"
+                      y = "100"/>
           </graphics>
           <text>Verlustbehaftetes Kabel</text>
         </comment>
         <comment id = "c3">
           <graphics>
-            <position x = "760"
-                      y = "380"/>
+            <position x = "860"
+                      y = "440"/>
           </graphics>
           <text>Empf&#228;nger
 Best&#228;tige 0</text>
         </comment>
         <comment id = "c4">
           <graphics>
-            <position x = "720"
-                      y = "120"/>
-          </graphics>
-          <text>Nirvana</text>
-        </comment>
-        <comment id = "c5">
-          <graphics>
-            <position x = "660"
+            <position x = "640"
                       y = "240"/>
           </graphics>
           <text>Verlustbehaftetes Kabel</text>
         </comment>
-        <comment id = "c6">
+        <comment id = "c5">
           <graphics>
-            <position x = "460"
-                      y = "220"/>
+            <position x = "500"
+                      y = "160"/>
           </graphics>
           <text>Nirvana</text>
         </comment>
+        <comment id = "c6">
+          <graphics>
+            <position x = "1000"
+                      y = "100"/>
+          </graphics>
+          <text>Angekommen nicht 
+verarbeitete Pakete</text>
+        </comment>
         <comment id = "c7">
           <graphics>
-            <position x = "740"
-                      y = "820"/>
+            <position x = "620"
+                      y = "20"/>
           </graphics>
-          <text>Empf&#228;nger
-Best&#228;tige 1</text>
+          <text>Nirvana</text>
         </comment>
         <comment id = "c8">
           <graphics>
             <position x = "340"
-                      y = "500"/>
+                      y = "560"/>
           </graphics>
           <text>Sender
 Sende 1</text>
         </comment>
         <comment id = "c9">
           <graphics>
-            <position x = "640"
-                      y = "560"/>
-          </graphics>
-          <text>Nirvana</text>
-        </comment>
-        <comment id = "c10">
-          <graphics>
-            <position x = "480"
-                      y = "580"/>
-          </graphics>
-          <text>Nirvana</text>
-        </comment>
-        <comment id = "c11">
-          <graphics>
-            <position x = "520"
-                      y = "460"/>
+            <position x = "700"
+                      y = "600"/>
           </graphics>
           <text>Verlustbehaftetes Kabel</text>
         </comment>
-        <comment id = "c12">
+        <comment id = "c10">
+          <graphics>
+            <position x = "840"
+                      y = "940"/>
+          </graphics>
+          <text>Empf&#228;nger
+Best&#228;tige 1</text>
+        </comment>
+        <comment id = "c11">
           <graphics>
             <position x = "620"
                       y = "740"/>
           </graphics>
           <text>Verlustbehaftetes Kabel</text>
+        </comment>
+        <comment id = "c12">
+          <graphics>
+            <position x = "480"
+                      y = "660"/>
+          </graphics>
+          <text>Nirvana</text>
+        </comment>
+        <comment id = "c13">
+          <graphics>
+            <position x = "980"
+                      y = "600"/>
+          </graphics>
+          <text>Angekommen nicht 
+verarbeitete Pakete</text>
+        </comment>
+        <comment id = "c14">
+          <graphics>
+            <position x = "600"
+                      y = "520"/>
+          </graphics>
+          <text>Nirvana</text>
         </comment>
       </comments>
       <view xmlns = "http://www.irt.rwth-aachen.de/download/netlab"
