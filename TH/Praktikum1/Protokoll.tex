@@ -77,8 +77,16 @@ Alternativ könnte durch das Einteilen des Netzes in verschiedene Aktoren die je
 In Teilaufgabe Eins werden die verlorengegangenen Nachrichten nicht gezählt. Wenn ein Simulationstool gewählt wird das nicht vom Anwender gesteuert wird (beispielsweise \verb!Snoopy!) sollten zur statistischen Auswertung Plätze zum Sammeln und Zählen der verlorengegangenen Nachrichten geschafen werden, siehe auch Abbildung \ref{img:aufg5} Platz 6. 
 	
 \section{Korrektheit}
+Um die Korrektheit des in Abbildung \ref{img:aufg1} gezeigten Netzes zu beweisen haben wir den Erreichbarkeitsgraphen (siehe: Listing \ref{eGraph}) des Netzes darauf untersucht, dass er nur legale Konfigurationen enthält.
+Jede legale Konfiguration erfüllt folgende Bedingungen:
+\begin{itemize}
+	\item Genau ein Token auf 2 oder 5
+	\item Genau ein Token auf 3 oder 8
+\end{itemize}
 
+Die Prüfung 
 
+\lstinputlisting[label=eGraph, frame=single]{ErreichbarkeitsGraphAufg1.txt}
 
 \subsection{Nachrichtenverlust}
 Im hier gewählten Modellierungtool ist die Anzahl an verlorengegangenen Nachrichten abhängig von Benutzereingaben. Gegeben ein Tool das alle Ausgänge gleichwertig behandelt würden wir mit einem Nachrichtenverlust von ca. 50 Prozent rechnen.
