@@ -493,7 +493,7 @@ Sende 1</text>
             description = "true"
             colored_invariants = "true">
         <scrollerposition x = "0"
-                          y = "35"/>
+                          y = "199"/>
       </view>
       <calculation xmlns = "http://www.irt.rwth-aachen.de/download/netlab"
                    autocalculate_invariants = "false"

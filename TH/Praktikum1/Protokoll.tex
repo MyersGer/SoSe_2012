@@ -58,10 +58,30 @@
 	\listoffigures   
 
 \section{Modellierung}
+	Abbildung \ref{img:aufg1} zeigt das hier gewählte Modell für das in der Aufgabe beschriebene Zusammenspiel von Sender un Empfänger. Im Folgenden auf die in der Modellierung getroffenen Entscheidungen und ihre Alternativen eingegangen und für einige ausgewählte Alternativen diese an den Modellen der Teilaufgaben Fünf und Sechs gezeigt.
+	  
+	\begin{figure}[H]
+                \includegraphics[scale=0.5]{praktikum1-aufgabe1.png}
+        \caption{Petri Netz 1}
+        \label{img:aufg1}
+	\end{figure}
+	
+Jeder Nachricht wird hier als ein Token modelliert.
+	
+Es wird hier\footnote{Teilaufgabe Eins} \textbf{nur das Kabel} modelliert und keine Details des Empfängers. In Abbildung \ref{img:aufg1} ist dies Berispielhaft in den Verbindungen der Plätze \verb!2! und \verb!3! zu erkennen. Die als \verb!Nirvana! bezeichnete Transistion \verb!3! ist die einzige in der Nachrichten verloren gehen können und repräsentiert somit sowohl Verluste auf dem Kapel als auch beim Empfänger. Die Transisiton \verb!4! die den Übergang einer Nachricht vom Kabel in den Empfänger konsumiert aus dem Platz \verb!8! die Bestätigungsnachricht für das andere Bit die nun nicht mehr gesendet werden kann.
+Die Kompelxität liegt hier in der Modellierung des verlustbehafteten Kabels. \textbf{Alternativ} wäre eine Modellierung denkbar bei der auf Empfängerseite noch weitere Details ausgearbeietet werden, siehe auch Abbildung \ref{img:aufg5}.
 
+In der hier gewählten Modellierung ist keine globale Taktung vorhanden. Dieser Weg wurde gewählt um die Modellierung nicht übermäßig komplex werden zu lassen. Es lassen sich so mit dem petri-Netz allerdings Effekte simulieren die in der Realität schwer vorstellbar sind. Beispielhaft sei das 1000 malige Senden der Bestätigung in der Zeit in der nur eine Nachricht gesendet wurde genannt.   
+Alternativ könnte durch das Einteilen des Netzes in verschiedene Aktoren die jeweils eine Aktion ausführen können wenn sie ein globales Token besitzen eine Taktung hergestellt werden die die Simulation näher and ie Realität führt. 
+
+In Teilaufgabe Eins werden die verlorengegangenen Nachrichten nicht gezählt. Wenn ein Simulationstool gewählt wird das nicht vom Anwender gesteuert wird (beispielsweise \verb!Snoopy!) sollten zur statistischen Auswertung Plätze zum Sammeln und Zählen der verlorengegangenen Nachrichten geschafen werden, siehe auch Abbildung \ref{img:aufg5} Platz 6. 
+	
 \section{Korrektheit}
 
+
+
 \subsection{Nachrichtenverlust}
+Im hier gewählten Modellierungtool ist die Anzahl an verlorengegangenen Nachrichten abhängig von Benutzereingaben. Gegeben ein Tool das alle Ausgänge gleichwertig behandelt würden wir mit einem Nachrichtenverlust von ca. 50 Prozent rechnen.
 
 \section{Petri Netze}
 
