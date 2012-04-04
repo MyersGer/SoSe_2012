@@ -381,7 +381,7 @@
          source = "p5"
          target = "t5">
       <inscription>
-        <text>3</text>
+        <text>20</text>
         <graphics>
           <offset x = "0"
                   y = "-10"/>
@@ -507,7 +507,7 @@
          source = "p11"
          target = "t12">
       <inscription>
-        <text>3</text>
+        <text>20</text>
         <graphics>
           <offset x = "0"
                   y = "-10"/>
