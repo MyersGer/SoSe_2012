@@ -68,10 +68,10 @@
                    y = "40"/>
       </graphics>
       <initialMarking>
-        <text>0</text>
+        <text>20</text>
       </initialMarking>
       <capacity>
-        <text>3</text>
+        <text>32767</text>
       </capacity>
     </place>
     <place id = "p6">
@@ -152,10 +152,10 @@
                    y = "40"/>
       </graphics>
       <initialMarking>
-        <text>0</text>
+        <text>20</text>
       </initialMarking>
       <capacity>
-        <text>3</text>
+        <text>32767</text>
       </capacity>
     </place>
     <place id = "p12">
@@ -704,7 +704,7 @@ verarbeitete Pakete</text>
             description = "true"
             colored_invariants = "true">
         <scrollerposition x = "0"
-                          y = "0"/>
+                          y = "234"/>
       </view>
       <calculation xmlns = "http://www.irt.rwth-aachen.de/download/netlab"
                    autocalculate_invariants = "false"
