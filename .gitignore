@@ -1,3 +1,10 @@
 *~
 *.bkp
 *.tmp
+*.aux
+*.log
+*.toc
+*.lof
+*.lol
+*.out
+*.gz
