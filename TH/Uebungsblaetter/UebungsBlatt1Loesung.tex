@@ -97,14 +97,44 @@
 			7 \text{ ;falls } x=p1\\
 			4 \text{ ;falls } x=p4\\
 			\omega \text{ ;sonst}
-	     \end{cases} 	      
+	     \end{cases} 
 	\end{align}	
-
+	
 	\subsection{Schalthäufigkeit}
 	Nein, da durch die Kapazität auf $p4$ die Transition $t3$ maximal 4 mal geschaltet werden kann und $p1$ diese Transition benötigt. 
 
 \section{Aufgabe 3}
-
+\subsection{Formale Definition des Netzes}
+	\begin{align}
+	&N =\{P,T,F,M_0\}\\
+	&P =\{p1,p2,p3\}\\
+	&T =\{t1,t2,t3\}\\
+	&F(x,y) =\begin{cases}
+			1 \text{ ;falls } (x,y) \in \{(p1,t1),(t1,p2),(t1,p3),(p2,t2),(t2,t1),(p3,t3),(t3,p1)\} \\
+			0 \text{ ;sonst}
+	     \end{cases}\\	
+	&M_0(x)=  \begin{cases}
+			1 \text{ ;falls } x=p1\\
+			0 \text{ ;sonst}
+	     \end{cases}        
+	\end{align}	
+	
+	\subsection{Schaltschritte}
+	
+	\subsubsection{Schaltschritt 1}
+		\begin{align}
+			t1 \text{ ist M-aktiviert da gilt } p \in \bullet t:M(p) \geq W(p,t)\\
+			\text{ genauer }\begin{cases}
+				M(p1) \geq W(p1,t1) = 1 \geq 1	
+			\end{cases}\\
+			
+			M\overset{t1}{\rightarrow}M^{'}		
+		\end{align}
+	\subsubsection{Schaltschritt 2}
+	
+	\subsection{Konflikte}
+	Es besteht ein Rückwärtskonflikt bei $p1$ da die beiden Tansitionen $t2$ und $t3$ nach schalten.
+	
 \section{Aufgabe 4}
 
 \end{document}
