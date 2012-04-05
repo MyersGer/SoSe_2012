@@ -6,10 +6,10 @@
 \usepackage[ngerman]{babel}
 \usepackage[automark]{scrpage2}
 \usepackage{amsmath,amssymb,amstext}
-%\usepackage{mathtools}
 \usepackage[]{color}
 \usepackage[]{enumerate}
 \usepackage{graphicx}
+\usepackage{polynom}
 \usepackage{lastpage}
 \usepackage[perpage,para,symbol*]{footmisc}
 \usepackage{listings} 
@@ -59,9 +59,49 @@
 	\lstlistoflistings	
 
 \section{Aufgabe 1}
+	\subsection{Formale Definition des Netzes}
+	\begin{align}
+	&N =\{P,T,W,M_0\}\\
+	&P =\{p1,p2,p3,p4\}\\
+	&T =\{t1,t2,t3\}\\
+	&W(x,y) =\begin{cases}
+			2 \text{ ;falls } (x,y) \in \{(t1,p2),(t2,p3)\} \\
+			1 \text{ ;falls } (x,y) \in \{(p1,t1),(p2,t2), (p3,t3), (t3,p1), (t3,p4)\} \\
+			0 \text{ ;sonst}
+	     \end{cases}\\
+	&M_0(x)=  \begin{cases}
+			1 \text{ ;falls } x=p1\\
+			0 \text{ ;sonst}
+	     \end{cases}   
+	\end{align}	
 
+	\subsection{Schalthäufigkeit}
+	Das Netz kann beliebig oft schalten.
 
 \section{Aufgabe 2}
+	\subsection{Formale Definition des Netzes}
+	\begin{align}
+	&N =\{P,T,W,M_0\}\\
+	&P =\{p1,p2,p3,p4\}\\
+	&T =\{t1,t2,t3\}\\
+	&W(x,y) =\begin{cases}
+			2 \text{ ;falls } (x,y) \in \{(t1,p2),(t2,p3)\} \\
+			1 \text{ ;falls } (x,y) \in \{(p1,t1),(p2,t2), (p3,t3), (t3,p1), (t3,p4)\} \\
+			0 \text{ ;sonst}
+	     \end{cases}\\
+	&M_0(x)=  \begin{cases}
+			1 \text{ ;falls } x=p1\\
+			0 \text{ ;sonst}
+	     \end{cases}\\  
+	&K(x)=  \begin{cases}
+			7 \text{ ;falls } x=p1\\
+			4 \text{ ;falls } x=p4\\
+			\omega \text{ ;sonst}
+	     \end{cases} 	      
+	\end{align}	
+
+	\subsection{Schalthäufigkeit}
+	Nein, da durch die Kapazität auf $p4$ die Transition $t3$ maximal 4 mal geschaltet werden kann und $p1$ diese Transition benötigt. 
 
 \section{Aufgabe 3}
 
