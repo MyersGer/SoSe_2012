@@ -8,8 +8,8 @@ public class Main {
 	private final static String TILED_MAP_LOCATION = "src/main/resources/maps/strassen.tmx";
 	private final static String TILED_RESOURCE_LOCATION = "src/main/resources/maps/";
 	
-	private static final int DISPLAY_WIDTH = 800;
-	private static final int DISPLAY_HEIGHT = 800;
+	private static final int DISPLAY_WIDTH = 1200;
+	private static final int DISPLAY_HEIGHT = 900;
 	
 	/**
 	 * @param args

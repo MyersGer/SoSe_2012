@@ -1,5 +1,6 @@
-package character.controller;
+package agent.controller;
 
 public class InteractiveController {
+	
 	
 }
