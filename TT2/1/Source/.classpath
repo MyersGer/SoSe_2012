@@ -30,5 +30,18 @@
 	<classpathentry kind="lib" path="src/main/resources/lib/slick-util.jar"/>
 	<classpathentry kind="lib" path="src/main/resources/lib/slick.jar"/>
 	<classpathentry kind="lib" path="src/main/resources/lib/tinylinepp.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/lib/gigaspaces/com.springsource.org.aopalliance-1.0.0.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/lib/gigaspaces/commons-logging.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/lib/gigaspaces/gs-openspaces.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/lib/gigaspaces/gs-runtime.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/lib/gigaspaces/org.springframework.aop-3.0.7.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/lib/gigaspaces/org.springframework.asm-3.0.7.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/lib/gigaspaces/org.springframework.aspects-3.0.7.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/lib/gigaspaces/org.springframework.beans-3.0.7.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/lib/gigaspaces/org.springframework.context-3.0.7.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/lib/gigaspaces/org.springframework.context.support-3.0.7.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/lib/gigaspaces/org.springframework.core-3.0.7.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/lib/gigaspaces/org.springframework.expression-3.0.7.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/lib/gigaspaces/org.springframework.transaction-3.0.7.RELEASE.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
