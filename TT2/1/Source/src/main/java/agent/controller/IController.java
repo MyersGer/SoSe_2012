@@ -1,5 +1,5 @@
 package agent.controller;
 
 public interface IController {
-	public void moveForward();
+	public void move();
 }

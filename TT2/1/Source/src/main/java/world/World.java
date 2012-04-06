@@ -12,18 +12,20 @@ import basic.IUpdateable;
 
 import agent.Agent;
 import agent.Direction;
+import agent.controller.AutonomousController;
+import agent.controller.InteractiveController;
 
 
 
 public class World implements IUpdateable{
 	
 	private TiledMap map;
-	private ArrayList<Agent> agentList = new ArrayList<Agent>();
+	private ArrayList<Agent> activeAgents = new ArrayList<Agent>();
 	private Queue<Agent> nonActiveAgents = new LinkedBlockingQueue<Agent>();
 	private ArrayList<Integer> spawnTiles = new ArrayList<Integer>();
 	private HashMap<Integer, Point> streetTileXYMap = new HashMap<Integer, Point>();
 	private Agent player;
-	private int updates = 0;
+	private int updates = 499;
 	
 	public World(TiledMap map, int agentCount){
 		this.map = map;
@@ -56,9 +58,11 @@ public class World implements IUpdateable{
 			//first Agent is always Player
 			if(i==0){
 				agent = new Agent("src/main/resources/objects/car_pc.png");
+				agent.setController(new InteractiveController(this, agent));
 				this.player = agent;
 			}else{
 				agent = new Agent("src/main/resources/objects/car_npc.png");
+				agent.setController(new AutonomousController(this, agent));
 			}
 			
 			this.nonActiveAgents.add(agent);
@@ -69,14 +73,42 @@ public class World implements IUpdateable{
 	
 	public void update(){
 		updates++;
-		if(this.updates > 500){
+		if(this.updates > 200){
 			spawn();
 			this.updates = 0;
 		}
 		
-		
-		for(Agent a: this.agentList)
+		ArrayList<Integer> removeActiveAgents = new ArrayList<Integer>();
+		for(Agent a: activeAgents){
 			a.update();
+			
+			//remove agent from active list when leaving map
+			Point agentAbsPos = a.getPosition();
+			if(agentAbsPos.getX() > map.getWidth()*map.getTileWidth() || agentAbsPos.getX() < 0){
+				nonActiveAgents.add(a);
+				removeActiveAgents.add(activeAgents.indexOf(a));
+			}
+			
+			if(agentAbsPos.getY() > map.getHeight()*map.getTileHeight() || agentAbsPos.getY() < 0){
+				nonActiveAgents.add(a);
+				removeActiveAgents.add(activeAgents.indexOf(a));
+			}
+		}
+
+		for(int x: removeActiveAgents){
+			activeAgents.remove(x);
+		}
+	}
+	
+	
+	
+	public ArrayList<Point> getOccupiedTiles(Agent a){
+		ArrayList<Point> tiles = new ArrayList<Point>();
+		
+		Point agentAbsPos = a.getPosition();
+
+		
+		return tiles;
 	}
 	
 	private void spawn(){
@@ -86,7 +118,8 @@ public class World implements IUpdateable{
 			//TODO:gegen tupelspace prüfen
 
 			Agent agent = this.nonActiveAgents.poll();
-			agent.setTile(this.streetTileXYMap.get(this.spawnTiles.get(pos))); //set agent's tile to spawn pos
+			Point tilePos = this.streetTileXYMap.get(this.spawnTiles.get(pos));
+			agent.setPosition(tilePos, new Point(tilePos.getX()*map.getTileWidth(), tilePos.getY()*map.getTileHeight())); //set agent's tile to spawn pos
 			
 			String direction = map.getTileProperty(this.spawnTiles.get(pos), "direction", "false");
 			String side = map.getTileProperty(this.spawnTiles.get(pos), "side", "false");
@@ -104,7 +137,7 @@ public class World implements IUpdateable{
 					agent.setDirection(Direction.BOTTOM_TO_TOP);
 				}
 			}
-			this.agentList.add(agent);
+			this.activeAgents.add(agent);
 		}
 	}
 	
@@ -114,7 +147,7 @@ public class World implements IUpdateable{
 	
 	
 	public ArrayList<Agent> getAgentList(){
-		return this.agentList;
+		return this.activeAgents;
 	}
 	
 }

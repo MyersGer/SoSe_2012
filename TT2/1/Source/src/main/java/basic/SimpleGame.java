@@ -20,6 +20,7 @@ import org.newdawn.slick.tiled.TiledMap;
 import agent.Agent;
 import agent.Direction;
 import agent.controller.IController;
+import agent.controller.InteractiveController;
 
 
 import world.World;
@@ -45,32 +46,41 @@ public class SimpleGame extends BasicGame {
 	public void init(GameContainer gc) throws SlickException {
 		
 		map = new TiledMap(map_file, mapgfx_location);
-		world = new World(map, 4);
+		world = new World(map, 20);
 		gc.setTargetFrameRate(50);
 	}
 
 	@Override
 	public void update(GameContainer gc, int delta) throws SlickException {
-		world.update();
-	}
-
-	private void processInput(Input in) {
+		//input processing
 		agent.Agent player = world.getPlayer();
-		IController controller = player.getController();
+		InteractiveController controller = (InteractiveController)player.getController();
+		
+		Input in = gc.getInput();
 		
 		if (in.isKeyDown(Input.KEY_DOWN)) {
 			if(player.getDirection() == Direction.TOP_TO_BOTTOM)
-				controller.moveForward();
+				controller.proceed();
 		} else if (in.isKeyDown(Input.KEY_UP)) {
 			if(player.getDirection() == Direction.BOTTOM_TO_TOP)
-				controller.moveForward();
+				controller.proceed();
 		} else if (in.isKeyDown(Input.KEY_LEFT)) {
 			if(player.getDirection() == Direction.RIGHT_TO_LEFT)
-				controller.moveForward();
+				controller.proceed();
 		} else if (in.isKeyDown(Input.KEY_RIGHT)) {
 			if(player.getDirection() == Direction.LEFT_TO_RIGHT)
-				controller.moveForward();
+				controller.proceed();
+		} else if (in.isKeyPressed(Input.KEY_ESCAPE)) {
+			gc.exit();
 		}
+		else if (in.isKeyPressed(Input.KEY_W)){
+			player.setVelocity(player.getVelocity()-0.1);
+		}
+		else if (in.isKeyPressed(Input.KEY_Q)){
+			player.setVelocity(player.getVelocity()+0.1);
+		}
+		
+		world.update();
 	}
 
 	public void render(GameContainer gc, Graphics g) throws SlickException {
@@ -85,18 +95,16 @@ public class SimpleGame extends BasicGame {
         int centery = (gc.getHeight() / tileHeight) / 2;
 
 		
-		map.render(0, 0, 0, 0, map.getHeight(), map.getWidth());
+		map.render(0, 0, 0, 0, map.getWidth(), map.getHeight());
 		
 		for(Agent agent: agents){
 			Image sprite = agent.getSprite();
-			Point TilePos = agent.getTilePosition();
-			sprite.draw(TilePos.getX() * tileWidth, TilePos.getY() * tileHeight, tileWidth, tileHeight);
+			sprite.draw(agent.getPosition().getX()+agent.getVisCorrectionX(), agent.getPosition().getY()+agent.getVisCorrectionY(), sprite.getWidth(), sprite.getHeight());
 		}
 	}
 
 	@Override
 	public boolean closeRequested() {
-		
 		return false;
 	}
 

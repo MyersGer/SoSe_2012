@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="25" height="17" tilewidth="48" tileheight="48">
+<map version="1.0" orientation="orthogonal" width="22" height="17" tilewidth="48" tileheight="48">
  <tileset firstgid="1" source="roads.tsx"/>
- <layer name="strassennetz" width="25" height="17">
+ <layer name="strassennetz" width="22" height="17">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAAxNmYGAQxoPZgViAgBpKMf+oHXS1g4kAZgViNiLU4cKMQMwJxFx4MC8Q8xFQQwgPl/gYtWPUjuFsBweFZgAAsoXkNqQGAAA=
+   H4sIAAAAAAAAAxNmYGAQBmJ2IBaAsglhUtTyU1ktExSzAjEbEh8fJqSWEYg5gZgLiHmBmA/KJoSJUUurcBhVO6qWHmpH8xv91HJQUS0ApqDOxdgFAAA=
   </data>
  </layer>
 </map>
