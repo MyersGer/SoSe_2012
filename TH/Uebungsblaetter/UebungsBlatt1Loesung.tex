@@ -121,21 +121,41 @@
 	
 	\subsection{Schaltschritte}
 	
-	\subsubsection{Schaltschritt 1}
-		\begin{align}
-			t1 \text{ ist M-aktiviert da gilt } p \in \bullet t:M(p) \geq W(p,t)\\
-			\text{ genauer }\begin{cases}
+	\subsubsection{Schaltschritt 1}	
+		\begin{align}	
+			&t1 \text{ ist M-aktiviert da gilt } p \in \bullet t1:M(p) \geq W(p,t1)\\
+			&\text{ genauer }\begin{cases}
 				M(p1) \geq W(p1,t1) = 1 \geq 1	
 			\end{cases}\\
-			
-			M\overset{t1}{\rightarrow}M^{'}		
+			&M^{'}(p) \text{ bestimmt sich also durch } M(p) - W(p,t1) + W(t1,p) \text{ für }  p \in P\\
+			&\text{ genauer }\begin{cases}
+				M^{'}(p1) = M(p1) - W(p1,t1) + W(t1,p1) = 1 - 1 + 0 = 0\\
+				M^{'}(p2) = M(p2) - W(p2,t1) + W(t1,p2) = 0 - 0 + 1 = 1\\ 
+				M^{'}(p3) = M(p3) - W(p3,t1) + W(t1,p3) = 0 - 0 + 1 = 1\\ 
+			\end{cases}\\
+			&M\overset{t1}{\rightarrow}M^{'}			
 		\end{align}
+		
 	\subsubsection{Schaltschritt 2}
-	
+		\begin{align}	
+			&t2 \text{ ist M-aktiviert da gilt } p \in \bullet t2:M(p) \geq W(p,t2)\\
+			&\text{ genauer }\begin{cases}
+				M(p2) \geq W(p2,t2) = 1 \geq 1	
+			\end{cases}\\
+			&M^{'}(p) \text{ bestimmt sich also durch } M(p) - W(p,t2) + W(t2,p) \text{ für }  p \in P\\
+			&\text{ genauer }\begin{cases}
+				M^{'}(p1) = M(p1) - W(p1,t2) + W(t2,p1) = 0 - 0 + 1 = 1\\
+				M^{'}(p2) = M(p2) - W(p2,t2) + W(t2,p2) = 1 - 1 + 0 = 0\\ 
+				M^{'}(p3) = M(p3) - W(p3,t2) + W(t2,p3) = 1 - 0 + 0 = 1\\ 
+			\end{cases}\\
+			&M\overset{t2}{\rightarrow}M^{'}			
+		\end{align}
+		
 	\subsection{Konflikte}
 	Es besteht ein Rückwärtskonflikt bei $p1$ da die beiden Tansitionen $t2$ und $t3$ nach schalten.
 	
 \section{Aufgabe 4}
+
 
 \end{document}
 
