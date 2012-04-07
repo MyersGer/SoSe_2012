@@ -43,5 +43,6 @@
 	<classpathentry kind="lib" path="src/main/resources/lib/gigaspaces/org.springframework.core-3.0.7.RELEASE.jar"/>
 	<classpathentry kind="lib" path="src/main/resources/lib/gigaspaces/org.springframework.expression-3.0.7.RELEASE.jar"/>
 	<classpathentry kind="lib" path="src/main/resources/lib/gigaspaces/org.springframework.transaction-3.0.7.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/lib/log4j.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

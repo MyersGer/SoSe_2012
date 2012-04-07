@@ -11,7 +11,7 @@ public class InteractiveController extends Controller {
 		super(w, a);
 	}
 
-	public void move() {
+	public void move() {		
 		if(move){
 			agent.moveForward();
 		}

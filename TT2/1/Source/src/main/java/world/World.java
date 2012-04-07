@@ -100,13 +100,26 @@ public class World implements IUpdateable{
 		}
 	}
 	
+	private Point tileForPoint(Point p){
+		int x = (int) Math.floor(p.getX()/map.getTileWidth());
+		int y = (int) Math.floor(p.getY()/map.getTileHeight());
+		return new Point(x, y);
+	}
 	
 	
 	public ArrayList<Point> getOccupiedTiles(Agent a){
 		ArrayList<Point> tiles = new ArrayList<Point>();
 		
 		Point agentAbsPos = a.getPosition();
-
+		
+		Point agentUpperLeft;
+		Point agentLowerRight;
+		
+		agentUpperLeft = a.getPosition();
+		agentLowerRight = new Point(agentUpperLeft.getX()+a.getSprite().getWidth(), agentUpperLeft.getY()+a.getSprite().getHeight());
+		
+		tiles.add(tileForPoint(agentUpperLeft));
+		tiles.add(tileForPoint(agentLowerRight));
 		
 		return tiles;
 	}

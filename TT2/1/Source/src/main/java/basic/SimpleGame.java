@@ -46,7 +46,7 @@ public class SimpleGame extends BasicGame {
 	public void init(GameContainer gc) throws SlickException {
 		
 		map = new TiledMap(map_file, mapgfx_location);
-		world = new World(map, 20);
+		world = new World(map, 2);
 		gc.setTargetFrameRate(50);
 	}
 
