@@ -1,6 +1,7 @@
 package agent.controller;
 
 import org.lwjgl.util.Point;
+import org.openspaces.core.GigaSpace;
 
 import agent.Agent;
 import world.World;
@@ -9,8 +10,8 @@ public class InteractiveController extends Controller {
 
 	boolean move;
 	
-	public InteractiveController(World w, Agent a) {
-		super(w, a);
+	public InteractiveController(World w, Agent a, GigaSpace gs) {
+		super(w, a, gs);
 	}
 
 	public void move() {		
@@ -22,14 +23,5 @@ public class InteractiveController extends Controller {
 	
 	public void proceed(){
 		move = true;
-	}
-
-	public boolean reinit(Point p) {
-		return true;
-	}
-
-	public void reset() {
-		// TODO Auto-generated method stub
-		
 	}
 }

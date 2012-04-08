@@ -4,13 +4,13 @@ import com.gigaspaces.annotation.pojo.SpaceId;
 
 public class TileTuple {
 	
-	int tileid;
+	Integer tileid;
 	
 	public TileTuple(){
 		
 	}
 	
-	public TileTuple(int id){
+	public TileTuple(Integer id){
 		tileid = id;
 	}
 	

@@ -71,17 +71,15 @@ public class World implements IUpdateable{
 			//first Agent is always Player
 			if(i==0){
 				agent = new Agent("src/main/resources/objects/car_pc.png");
-				agent.setController(new InteractiveController(this, agent));
+				agent.setController(new InteractiveController(this, agent, gigaSpace));
 				this.player = agent;
 			}else{
 				agent = new Agent("src/main/resources/objects/car_npc.png");
-				agent.setController(new AutonomousController(this, agent));
+				agent.setController(new AutonomousController(this, agent, gigaSpace));
 			}
 			
 			this.nonActiveAgents.add(agent);
 		}
-		
-		//TODO: tiles in tuplespace werfen
 	}
 	
 	public void update(){
@@ -119,7 +117,7 @@ public class World implements IUpdateable{
 		return new Point(x, y);
 	}
 	
-	public int getTileIdForTileCoord(Point tile){
+	public Integer getTileIdForTileCoord(Point tile){
 		return this.tilePointToIDMap.get(tile);
 	}
 	

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import org.lwjgl.util.Point;
+import org.openspaces.core.GigaSpace;
 
 import agent.Agent;
 import agent.Direction;
@@ -11,21 +12,29 @@ import world.TileTuple;
 import world.World;
 
 public class AutonomousController extends Controller {
-	LinkedBlockingQueue<TileTuple> blockedTileQueue = new LinkedBlockingQueue();
 	
-	public AutonomousController(World w, Agent a) {
-		super(w, a);
+	public AutonomousController(World w, Agent a, GigaSpace gs) {
+		super(w, a, gs);
 	}
 
 	public void move() {
 		Point next = nextTile();
 		if(next != null){
 			//grab the tile out of the tuplespace
-			TileTuple tt = this.gigaSpace.readById(TileTuple.class, world.getTileIdForTileCoord(next));
-			if(tt != null){
+			Integer nextTileId = world.getTileIdForTileCoord(next);
+			if(nextTileId != null){ //check if agent moves out of map
+				TileTuple tt = this.gigaSpace.readById(TileTuple.class, nextTileId);
+				if(tt != null){
+					agent.moveForward();
+					blockedTileQueue.add(tt);
+					gigaSpace.write(blockedTileQueue.poll());
+				}
+				
+			}else{
+				if(!blockedTileQueue.isEmpty()){
+					gigaSpace.write(blockedTileQueue.poll()); //if out of map, clear write last tile back
+				}
 				agent.moveForward();
-				blockedTileQueue.add(tt);
-				gigaSpace.write(blockedTileQueue.poll());
 			}
 		}else{ //we are in movement
 			agent.moveForward();
@@ -52,23 +61,5 @@ public class AutonomousController extends Controller {
 		}
 		
 		return nextTile;
-	}
-
-	public boolean reinit(Point p) {
-		reset();
-		TileTuple tt = gigaSpace.readById(TileTuple.class, world.getTileIdForTileCoord(p));
-		
-		if(tt != null){
-			this.blockedTileQueue.add(tt);
-			return true;
-		}
-		return false;
-	}
-	
-	public void reset(){
-		//free occupied tiles
-		while(!this.blockedTileQueue.isEmpty()){
-			gigaSpace.write(blockedTileQueue.poll());
-		}
 	}
 }
