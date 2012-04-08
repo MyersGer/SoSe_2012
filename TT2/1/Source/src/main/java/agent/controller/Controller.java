@@ -7,7 +7,7 @@ import tuplespace.TupleSpace;
 import org.lwjgl.util.Point;
 import org.openspaces.core.GigaSpace;
 
-import world.TileTuple;
+import world.AreaTuple;
 import world.World;
 import agent.Agent;
 
@@ -16,7 +16,7 @@ public abstract class Controller implements IController{
 	protected World world;
 	protected Agent agent;
 	protected GigaSpace gigaSpace;
-	protected LinkedBlockingQueue<TileTuple> blockedTileQueue = new LinkedBlockingQueue();
+	protected LinkedBlockingQueue<AreaTuple> blockedAreaQueue = new LinkedBlockingQueue<AreaTuple>();
 	
 	public Controller(World w, Agent a, GigaSpace gs){
 		world = w;
@@ -27,15 +27,15 @@ public abstract class Controller implements IController{
 		gigaSpace = gs;
 	}
 	
-	public boolean reinit(Point p) {
+	public boolean reinit(Point area) {
 		reset();
-		Integer tileId = world.getTileIdForTileCoord(p);
+		Integer areaId = world.getAreaIdForAreaCoord(area);
 		
-		if(tileId != null){
-			TileTuple tt = gigaSpace.readById(TileTuple.class, tileId);
+		if(areaId != null){
+			AreaTuple tt = gigaSpace.readById(AreaTuple.class, areaId);
 			
 			if(tt != null){
-				this.blockedTileQueue.add(tt);
+				this.blockedAreaQueue.add(tt);
 				return true;
 			}
 		}
@@ -44,8 +44,8 @@ public abstract class Controller implements IController{
 	
 	public void reset(){
 		//free occupied tiles
-		while(!this.blockedTileQueue.isEmpty()){
-			gigaSpace.write(blockedTileQueue.poll());
+		while(!this.blockedAreaQueue.isEmpty()){
+			gigaSpace.write(blockedAreaQueue.poll());
 		}
 	}
 }

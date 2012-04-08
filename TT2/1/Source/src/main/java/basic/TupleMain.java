@@ -29,6 +29,8 @@ public class TupleMain {
 
 		// read by ID
 		Person vince = gigaSpace.readById(Person.class, 1);
+		Person vince2 = gigaSpace.readById(Person.class, 1);
+
 
 		// read with SQL query
 		Person johny = gigaSpace.read(new SQLQuery(Person.class, "firstName=?", "Johny"));

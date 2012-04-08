@@ -8,7 +8,7 @@ import org.openspaces.core.GigaSpace;
 
 import agent.Agent;
 import agent.Direction;
-import world.TileTuple;
+import world.AreaTuple;
 import world.World;
 
 public class AutonomousController extends Controller {
@@ -18,21 +18,26 @@ public class AutonomousController extends Controller {
 	}
 
 	public void move() {
-		Point next = nextTile();
+		Point next = nextArea();
+		
 		if(next != null){
 			//grab the tile out of the tuplespace
-			Integer nextTileId = world.getTileIdForTileCoord(next);
-			if(nextTileId != null){ //check if agent moves out of map
-				TileTuple tt = this.gigaSpace.readById(TileTuple.class, nextTileId);
-				if(tt != null){
+			Integer nextAreaId = world.getAreaIdForAreaCoord(next);
+			if(nextAreaId != null){ //check if agent moves out of map
+				if(this.blockedAreaQueue.contains(new AreaTuple(nextAreaId))) //if agent already owns area just move
 					agent.moveForward();
-					blockedTileQueue.add(tt);
-					gigaSpace.write(blockedTileQueue.poll());
+				else{
+					AreaTuple tt = this.gigaSpace.takeById(AreaTuple.class, nextAreaId);
+					if(tt != null){
+						agent.moveForward();
+						blockedAreaQueue.add(tt);
+						gigaSpace.write(blockedAreaQueue.poll());
+					}
 				}
 				
 			}else{
-				if(!blockedTileQueue.isEmpty()){
-					gigaSpace.write(blockedTileQueue.poll()); //if out of map, clear write last tile back
+				if(!blockedAreaQueue.isEmpty()){
+					gigaSpace.write(blockedAreaQueue.poll()); //if out of map, clear write last tile back
 				}
 				agent.moveForward();
 			}
@@ -41,10 +46,10 @@ public class AutonomousController extends Controller {
 		}
 	}
 	
-	private Point nextTile(){
+	private Point nextArea(){
 		Point nextTile = null;
 		
-		ArrayList<Point> tiles = world.getOccupiedTiles(agent);
+		ArrayList<Point> tiles = world.getOccupiedAreas(agent);
 		
 		Point tile1 = tiles.get(0);
 		Point tile2 = tiles.get(1);

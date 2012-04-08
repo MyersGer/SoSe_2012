@@ -90,11 +90,6 @@ public class SimpleGame extends BasicGame {
 		int tileHeight = map.getTileHeight();
 		ArrayList<Agent> agents = world.getAgentList();
 
-		//middle of the map
-        int centerx = (gc.getWidth() / tileWidth) / 2;
-        int centery = (gc.getHeight() / tileHeight) / 2;
-
-		
 		map.render(0, 0, 0, 0, map.getWidth(), map.getHeight());
 		
 		for(Agent agent: agents){

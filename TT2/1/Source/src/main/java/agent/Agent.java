@@ -18,7 +18,6 @@ public class Agent implements IUpdateable{
 	
 	private SpriteSheet spriteSheet = null;
 	private Point pos;
-	private Point tile;
 	private IController controller;
 	private Direction direction = Direction.LEFT_TO_RIGHT;
 	private double velocity = 0;
@@ -44,9 +43,9 @@ public class Agent implements IUpdateable{
 		} 
 	}
 	
-	public boolean spawn(Point tile, Point absPos, Direction dir){
-		if(this.controller.reinit(tile)){
-			this.setPosition(tile, absPos);
+	public boolean spawn(Point area, Point absPos, Direction dir){
+		if(this.controller.reinit(area)){
+			this.setPosition(absPos);
 			this.setDirection(dir);
 			return true;
 		}
@@ -89,9 +88,8 @@ public class Agent implements IUpdateable{
 		this.direction = dir;
 	}
 	
-	private void setPosition(Point tile, Point absPos){
+	private void setPosition(Point absPos){
 		this.pos = absPos;
-		this.tile = tile;
 	}
 	
 	public void setController(IController ctrl){

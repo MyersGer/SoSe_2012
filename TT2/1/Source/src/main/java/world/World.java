@@ -25,41 +25,45 @@ public class World implements IUpdateable{
 	private TiledMap map;
 	private ArrayList<Agent> activeAgents = new ArrayList<Agent>();
 	private Queue<Agent> nonActiveAgents = new LinkedBlockingQueue<Agent>();
-	private ArrayList<Integer> spawnTiles = new ArrayList<Integer>();
-	private HashMap<Integer, Point> tileIDtoPointMap = new HashMap<Integer, Point>();
-	private HashMap<Point, Integer> tilePointToIDMap = new HashMap<Point, Integer>();
+	private ArrayList<Integer> spawnAreas = new ArrayList<Integer>();
+	private HashMap<Integer, Point> areaIDToPointMap = new HashMap<Integer, Point>();
+	private HashMap<Point, Integer> areaPointToIDMap = new HashMap<Point, Integer>();
 	private Agent player;
 	private int updates = 499;
 	private GigaSpace gigaSpace = null;
+	private int streetLayerIndex = 0;
 	
 	public World(TiledMap map, int agentCount){
 		this.map = map;
+		streetLayerIndex = map.getLayerIndex("strassennetz");
 		init(agentCount);
 	}
 	
 	private void init(int agentCount){
 		 	
+		Integer areaId = 0; 
+		
 		TupleSpace tp = new TupleSpace("TileSpace");
 		gigaSpace = tp.getGigaSpace();
-		
-		int streetLayerIndex  = map.getLayerIndex("strassennetz");
 	
 		//collect tiles where cars can be spawned, create mapping tileID->XY, init tuplespace 
 	
 		for(int x=0; x<map.getWidth(); x++){
 			for(int y=0; y<map.getHeight(); y++){
-				int tileID = map.getTileId(x, y, streetLayerIndex);
-				tileIDtoPointMap.put(tileID, new Point(x, y)); //create mapping
-				tilePointToIDMap.put(new Point(x,y), tileID);
+				int tileId = map.getTileId(x, y, streetLayerIndex);
+				areaIDToPointMap.put(areaId, new Point(x, y)); //create mapping
+				areaPointToIDMap.put(new Point(x,y), areaId);
 				
 				//check for spawn property
-				String prop = map.getTileProperty(tileID, "spawn", "false");
+				String prop = map.getTileProperty(tileId, "spawn", "false");
 				if(prop.equals("true"))
-					spawnTiles.add(tileID);
+					spawnAreas.add(areaId);
 				
 				
 				//init tuplespace
-				gigaSpace.write(new TileTuple(tileID));
+				gigaSpace.write(new AreaTuple(areaId));
+				
+				areaId++;
 			}
 		}
 		
@@ -117,15 +121,13 @@ public class World implements IUpdateable{
 		return new Point(x, y);
 	}
 	
-	public Integer getTileIdForTileCoord(Point tile){
-		return this.tilePointToIDMap.get(tile);
+	public Integer getAreaIdForAreaCoord(Point area){
+		return this.areaPointToIDMap.get(area);
 	}
 	
-	public ArrayList<Point> getOccupiedTiles(Agent a){
+	public ArrayList<Point> getOccupiedAreas(Agent a){
 		ArrayList<Point> tiles = new ArrayList<Point>();
-		
-		Point agentAbsPos = a.getPosition();
-		
+				
 		Point agentUpperLeft;
 		Point agentLowerRight;
 		
@@ -141,17 +143,17 @@ public class World implements IUpdateable{
 	private void spawn(){
 		if(!this.nonActiveAgents.isEmpty()){
 			Random rand = new Random(System.nanoTime());
-			int pos = rand.nextInt(this.spawnTiles.size());
+			int pos = rand.nextInt(this.spawnAreas.size());
 			
-			TileTuple tt = gigaSpace.readById(TileTuple.class, spawnTiles.get(pos));
+			AreaTuple tt = gigaSpace.readById(AreaTuple.class, spawnAreas.get(pos));
 
 			if(tt != null){
 				Agent agent = this.nonActiveAgents.poll();
-				Point tilePos = this.tileIDtoPointMap.get(this.spawnTiles.get(pos));
+				Point area = this.areaIDToPointMap.get(this.spawnAreas.get(pos));
 				
-				
-				String direction = map.getTileProperty(this.spawnTiles.get(pos), "direction", "false");
-				String side = map.getTileProperty(this.spawnTiles.get(pos), "side", "false");
+				int tileId = map.getTileId(area.getX(), area.getY(), streetLayerIndex);
+				String direction = map.getTileProperty(tileId, "direction", "false");
+				String side = map.getTileProperty(tileId, "side", "false");
 				
 				Direction dir = null;
 				if(direction.equals("horizontal")){
@@ -167,8 +169,8 @@ public class World implements IUpdateable{
 						dir = Direction.BOTTOM_TO_TOP;
 					}
 				}
-				Point absPos = new Point(tilePos.getX()*map.getTileWidth(), tilePos.getY()*map.getTileHeight());
-				agent.spawn(tilePos,  absPos, dir);
+				Point absPos = new Point(area.getX()*map.getTileWidth(), area.getY()*map.getTileHeight());
+				agent.spawn(area,  absPos, dir);
 				this.activeAgents.add(agent);
 			}
 		}
