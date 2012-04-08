@@ -1,23 +1,35 @@
 package agent.controller;
 
 import java.util.ArrayList;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import org.lwjgl.util.Point;
 
 import agent.Agent;
 import agent.Direction;
+import world.TileTuple;
 import world.World;
 
 public class AutonomousController extends Controller {
-
+	LinkedBlockingQueue<TileTuple> blockedTileQueue = new LinkedBlockingQueue();
 	
 	public AutonomousController(World w, Agent a) {
 		super(w, a);
 	}
 
 	public void move() {
-		
-		agent.moveForward();
+		Point next = nextTile();
+		if(next != null){
+			//grab the tile out of the tuplespace
+			TileTuple tt = this.gigaSpace.readById(TileTuple.class, world.getTileIdForTileCoord(next));
+			if(tt != null){
+				agent.moveForward();
+				blockedTileQueue.add(tt);
+				gigaSpace.write(blockedTileQueue.poll());
+			}
+		}else{ //we are in movement
+			agent.moveForward();
+		}
 	}
 	
 	private Point nextTile(){
@@ -40,5 +52,23 @@ public class AutonomousController extends Controller {
 		}
 		
 		return nextTile;
+	}
+
+	public boolean reinit(Point p) {
+		reset();
+		TileTuple tt = gigaSpace.readById(TileTuple.class, world.getTileIdForTileCoord(p));
+		
+		if(tt != null){
+			this.blockedTileQueue.add(tt);
+			return true;
+		}
+		return false;
+	}
+	
+	public void reset(){
+		//free occupied tiles
+		while(!this.blockedTileQueue.isEmpty()){
+			gigaSpace.write(blockedTileQueue.poll());
+		}
 	}
 }

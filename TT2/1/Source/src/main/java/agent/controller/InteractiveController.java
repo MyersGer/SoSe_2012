@@ -1,5 +1,7 @@
 package agent.controller;
 
+import org.lwjgl.util.Point;
+
 import agent.Agent;
 import world.World;
 
@@ -20,5 +22,14 @@ public class InteractiveController extends Controller {
 	
 	public void proceed(){
 		move = true;
+	}
+
+	public boolean reinit(Point p) {
+		return true;
+	}
+
+	public void reset() {
+		// TODO Auto-generated method stub
+		
 	}
 }

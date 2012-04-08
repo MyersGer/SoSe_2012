@@ -44,6 +44,15 @@ public class Agent implements IUpdateable{
 		} 
 	}
 	
+	public boolean spawn(Point tile, Point absPos, Direction dir){
+		if(this.controller.reinit(tile)){
+			this.setPosition(tile, absPos);
+			this.setDirection(dir);
+			return true;
+		}
+		return false;
+	}
+	
 	public void moveForward(){
 		if(progress >= 1){
 			if(this.direction == Direction.BOTTOM_TO_TOP)
@@ -76,11 +85,11 @@ public class Agent implements IUpdateable{
 	}
 	
 	
-	public void setDirection(Direction dir){
+	private void setDirection(Direction dir){
 		this.direction = dir;
 	}
 	
-	public void setPosition(Point tile, Point absPos){
+	private void setPosition(Point tile, Point absPos){
 		this.pos = absPos;
 		this.tile = tile;
 	}

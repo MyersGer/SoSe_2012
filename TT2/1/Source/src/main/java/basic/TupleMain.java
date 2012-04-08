@@ -11,6 +11,8 @@ import org.openspaces.admin.pu.ProcessingUnitAlreadyDeployedException;
 import org.openspaces.admin.space.SpaceDeployment;
 import org.openspaces.core.GigaSpace;
 
+import tuplespace.TupleSpace;
+
 import com.j_spaces.core.client.SQLQuery;
 
 public class TupleMain {
@@ -23,7 +25,7 @@ public class TupleMain {
 		GigaSpace gigaSpace = tp.getGigaSpace();
 
 		gigaSpace.write(new Person(1, "Vincent", "Chase"));
-		gigaSpace.write(new Person(2, "Johny", "Drama"));
+	//	gigaSpace.write(new Person(2, "Johny", "Drama"));
 
 		// read by ID
 		Person vince = gigaSpace.readById(Person.class, 1);
@@ -32,7 +34,7 @@ public class TupleMain {
 		Person johny = gigaSpace.read(new SQLQuery(Person.class, "firstName=?", "Johny"));
 		logger.debug("Johny ");
 		// readMultiple with template
-		Person[] vinceAndJohny = gigaSpace.readMultiple(new Person());
-
+	//	Person[] vinceAndJohny = gigaSpace.readMultiple(new Person());
+	
 	}
 }
