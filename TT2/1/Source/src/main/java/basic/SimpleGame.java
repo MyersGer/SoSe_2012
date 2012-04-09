@@ -31,9 +31,6 @@ public class SimpleGame extends BasicGame {
 	private TiledMap map;
 	private World world;
 	
-	private long beforeTime, afterTime, timeDiff, sleepTime, overSleepTime = 0;
-
-
 
 	public SimpleGame(String map_file, String mapgfx_location) {
 		super("TupleSpace");

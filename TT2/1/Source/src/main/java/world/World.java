@@ -48,8 +48,8 @@ public class World implements IUpdateable{
 	
 		//collect tiles where cars can be spawned, create mapping tileID->XY, init tuplespace 
 	
-		for(int x=0; x<map.getWidth(); x++){
-			for(int y=0; y<map.getHeight(); y++){
+		for(int y=0; y<map.getHeight(); y++){
+			for(int x=0; x<map.getWidth(); x++){
 				int tileId = map.getTileId(x, y, streetLayerIndex);
 				areaIDToPointMap.put(areaId, new Point(x, y)); //create mapping
 				areaPointToIDMap.put(new Point(x,y), areaId);
@@ -102,11 +102,13 @@ public class World implements IUpdateable{
 			if(agentAbsPos.getX() > map.getWidth()*map.getTileWidth() || agentAbsPos.getX() < 0){
 				nonActiveAgents.add(a);
 				removeActiveAgents.add(activeAgents.indexOf(a));
+				a.getController().reset();
 			}
 			
 			if(agentAbsPos.getY() > map.getHeight()*map.getTileHeight() || agentAbsPos.getY() < 0){
 				nonActiveAgents.add(a);
 				removeActiveAgents.add(activeAgents.indexOf(a));
+				a.getController().reset();
 			}
 		}
 

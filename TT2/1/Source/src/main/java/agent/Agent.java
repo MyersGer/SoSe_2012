@@ -24,7 +24,6 @@ public class Agent implements IUpdateable{
 	private double progress = 0;
 	private int width, height;
 	
-	private int visCorrectionFaktor = 15;
 	
 	public Agent(String spriteSheet){
 		width = height = 33;
@@ -70,6 +69,7 @@ public class Agent implements IUpdateable{
 	}
 	
 	public int getVisCorrectionY(){
+		
 		if(direction == Direction.RIGHT_TO_LEFT)
 			return 22;
 		else

@@ -18,7 +18,7 @@ public abstract class Controller implements IController{
 	protected World world;
 	protected Agent agent;
 	protected GigaSpace gigaSpace;
-	protected LinkedBlockingQueue<AreaTuple> blockedAreaQueue = new LinkedBlockingQueue<AreaTuple>();
+	protected ArrayList<AreaTuple> blockedAreaList = new ArrayList<AreaTuple>();
 	
 	public Controller(World w, Agent a, GigaSpace gs){
 		world = w;
@@ -37,7 +37,7 @@ public abstract class Controller implements IController{
 			AreaTuple tt = gigaSpace.takeById(AreaTuple.class, areaId);
 			
 			if(tt != null){
-				this.blockedAreaQueue.add(tt);
+				this.blockedAreaList.add(tt);
 				return true;
 			}
 		}
@@ -46,9 +46,10 @@ public abstract class Controller implements IController{
 	
 	public void reset(){
 		//free occupied tiles
-		while(!this.blockedAreaQueue.isEmpty()){
-			gigaSpace.write(blockedAreaQueue.poll());
+		for(AreaTuple at:blockedAreaList){
+			gigaSpace.write(at);
 		}
+		blockedAreaList.clear();
 	}
 	
 	protected Point nextArea(){
@@ -64,9 +65,9 @@ public abstract class Controller implements IController{
 			else if(agent.getDirection() == Direction.TOP_TO_BOTTOM)
 				nextArea = new Point(area1.getX(), area1.getY()+1);
 			else if(agent.getDirection() == Direction.LEFT_TO_RIGHT)
-				nextArea = new Point(area1.getX(), area1.getY()+1);
+				nextArea = new Point(area1.getX()+1, area1.getY());
 			else if(agent.getDirection() == Direction.RIGHT_TO_LEFT)
-				nextArea = new Point(area1.getX(), area1.getY()-1);
+				nextArea = new Point(area1.getX()-1, area1.getY());
 		}
 		
 		return nextArea;

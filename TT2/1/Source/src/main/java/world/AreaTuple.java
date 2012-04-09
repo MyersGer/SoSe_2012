@@ -47,5 +47,12 @@ public class AreaTuple {
 			return false;
 		return true;
 	}
+	
+	public String toString(){
+		if(areaId != null)
+			return this.areaId.toString();
+		else
+			return "null";
+	}
 
 }

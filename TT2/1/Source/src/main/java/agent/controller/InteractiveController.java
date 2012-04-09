@@ -18,35 +18,40 @@ public class InteractiveController extends Controller {
 		super(w, a, gs);
 	}
 
-	public void move() {		
-		if(move){
+	public void move() {
+		
+		ArrayList<AreaTuple> occupied = new ArrayList<AreaTuple>();
+		for(Point p : world.getOccupiedAreas(agent)){
+			occupied.add(new AreaTuple(world.getAreaIdForAreaCoord(p)));
+		}
+		
+		ArrayList<AreaTuple> toBeRemoved = new ArrayList<AreaTuple>();
+		for(AreaTuple at : blockedAreaList){
+			if(!occupied.contains(at))
+				toBeRemoved.add(at);
+		}
+		for(AreaTuple at : toBeRemoved){
+			gigaSpace.write(at);
+			blockedAreaList.remove(at);
+		}
+		
+		if(move){			
 			Point next = nextArea();
-			
-			if(next != null){
-				//grab the tile out of the tuplespace
+
+			if(next != null){ //agent is possibly able to move to new area
 				Integer nextAreaId = world.getAreaIdForAreaCoord(next);
-				if(nextAreaId != null){ //check if agent moves out of map
-					
-					if(world.getOccupiedAreas(agent).size() == 1 && blockedAreaQueue.size() > 0)
-						gigaSpace.write(blockedAreaQueue.poll());
-					
-					if(this.blockedAreaQueue.contains(new AreaTuple(nextAreaId))) //if agent already owns area just move
+		
+				if(nextAreaId != null && (!blockedAreaList.contains(new AreaTuple(nextAreaId)))){
+					AreaTuple tt = this.gigaSpace.takeById(AreaTuple.class, nextAreaId);
+					if(tt != null){
 						agent.moveForward();
-					else{
-						AreaTuple tt = this.gigaSpace.takeById(AreaTuple.class, nextAreaId);
-						if(tt != null){
-							agent.moveForward();
-							blockedAreaQueue.add(tt);
-						}
+						blockedAreaList.add(tt);
 					}
-					
+				
 				}else{
-					while(!blockedAreaQueue.isEmpty()){
-						gigaSpace.write(blockedAreaQueue.poll()); //if out of map, clear write last tile back
-					}
 					agent.moveForward();
 				}
-			}else{ //we are in movement
+			}else{
 				agent.moveForward();
 			}
 		}
