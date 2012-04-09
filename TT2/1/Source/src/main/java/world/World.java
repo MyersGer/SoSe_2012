@@ -115,7 +115,7 @@ public class World implements IUpdateable{
 		}
 	}
 	
-	private Point tileForPoint(Point p){
+	private Point areaForPoint(Point p){
 		int x = (int) Math.floor(p.getX()/map.getTileWidth());
 		int y = (int) Math.floor(p.getY()/map.getTileHeight());
 		return new Point(x, y);
@@ -126,7 +126,7 @@ public class World implements IUpdateable{
 	}
 	
 	public ArrayList<Point> getOccupiedAreas(Agent a){
-		ArrayList<Point> tiles = new ArrayList<Point>();
+		ArrayList<Point> areas = new ArrayList<Point>();
 				
 		Point agentUpperLeft;
 		Point agentLowerRight;
@@ -134,10 +134,13 @@ public class World implements IUpdateable{
 		agentUpperLeft = a.getPosition();
 		agentLowerRight = new Point(agentUpperLeft.getX()+a.getSprite().getWidth(), agentUpperLeft.getY()+a.getSprite().getHeight());
 		
-		tiles.add(tileForPoint(agentUpperLeft));
-		tiles.add(tileForPoint(agentLowerRight));
+		Point area1 = areaForPoint(agentUpperLeft);
+		Point area2 = areaForPoint(agentLowerRight);
+		areas.add(area1);
+		if(!area1.equals(area2))
+			areas.add(area2);
 		
-		return tiles;
+		return areas;
 	}
 	
 	private void spawn(){

@@ -1,5 +1,6 @@
 package agent.controller;
 
+import java.util.ArrayList;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import tuplespace.TupleSpace;
@@ -10,6 +11,7 @@ import org.openspaces.core.GigaSpace;
 import world.AreaTuple;
 import world.World;
 import agent.Agent;
+import agent.Direction;
 
 public abstract class Controller implements IController{
 	
@@ -32,7 +34,7 @@ public abstract class Controller implements IController{
 		Integer areaId = world.getAreaIdForAreaCoord(area);
 		
 		if(areaId != null){
-			AreaTuple tt = gigaSpace.readById(AreaTuple.class, areaId);
+			AreaTuple tt = gigaSpace.takeById(AreaTuple.class, areaId);
 			
 			if(tt != null){
 				this.blockedAreaQueue.add(tt);
@@ -47,5 +49,26 @@ public abstract class Controller implements IController{
 		while(!this.blockedAreaQueue.isEmpty()){
 			gigaSpace.write(blockedAreaQueue.poll());
 		}
+	}
+	
+	protected Point nextArea(){
+		Point nextArea = null;
+		
+		ArrayList<Point> areas = world.getOccupiedAreas(agent);
+		
+		
+		if(areas.size()<2){ //currently occupies one tile, otherwise agent is in movement
+			Point area1 = areas.get(0);
+			if(agent.getDirection() == Direction.BOTTOM_TO_TOP)
+				nextArea = new Point(area1.getX(), area1.getY()-1);
+			else if(agent.getDirection() == Direction.TOP_TO_BOTTOM)
+				nextArea = new Point(area1.getX(), area1.getY()+1);
+			else if(agent.getDirection() == Direction.LEFT_TO_RIGHT)
+				nextArea = new Point(area1.getX(), area1.getY()+1);
+			else if(agent.getDirection() == Direction.RIGHT_TO_LEFT)
+				nextArea = new Point(area1.getX(), area1.getY()-1);
+		}
+		
+		return nextArea;
 	}
 }

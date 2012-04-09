@@ -24,6 +24,10 @@ public class AutonomousController extends Controller {
 			//grab the tile out of the tuplespace
 			Integer nextAreaId = world.getAreaIdForAreaCoord(next);
 			if(nextAreaId != null){ //check if agent moves out of map
+				
+				if(world.getOccupiedAreas(agent).size() == 1 && blockedAreaQueue.size() > 0)
+					gigaSpace.write(blockedAreaQueue.poll());
+				
 				if(this.blockedAreaQueue.contains(new AreaTuple(nextAreaId))) //if agent already owns area just move
 					agent.moveForward();
 				else{
@@ -31,7 +35,10 @@ public class AutonomousController extends Controller {
 					if(tt != null){
 						agent.moveForward();
 						blockedAreaQueue.add(tt);
-						gigaSpace.write(blockedAreaQueue.poll());
+
+						if(world.getOccupiedAreas(agent).size() == 1)
+							gigaSpace.write(blockedAreaQueue.poll());
+						
 					}
 				}
 				
@@ -44,27 +51,5 @@ public class AutonomousController extends Controller {
 		}else{ //we are in movement
 			agent.moveForward();
 		}
-	}
-	
-	private Point nextArea(){
-		Point nextTile = null;
-		
-		ArrayList<Point> tiles = world.getOccupiedAreas(agent);
-		
-		Point tile1 = tiles.get(0);
-		Point tile2 = tiles.get(1);
-		
-		if(tile1.equals(tile2)){ //currently occupies one tile, otherwise agent is in movement
-			if(agent.getDirection() == Direction.BOTTOM_TO_TOP)
-				nextTile = new Point(tile1.getX(), tile1.getY()-1);
-			else if(agent.getDirection() == Direction.TOP_TO_BOTTOM)
-				nextTile = new Point(tile1.getX(), tile1.getY()+1);
-			else if(agent.getDirection() == Direction.LEFT_TO_RIGHT)
-				nextTile = new Point(tile1.getX(), tile1.getY()+1);
-			else if(agent.getDirection() == Direction.RIGHT_TO_LEFT)
-				nextTile = new Point(tile1.getX(), tile1.getY()-1);
-		}
-		
-		return nextTile;
 	}
 }
