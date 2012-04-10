@@ -2,11 +2,11 @@
   <net id = "n1"
        type = "http://www.irt.rwth-aachen.de/download/netlab/pntd/pnsmNet">
     <name>
-      <text>aufg4</text>
+      <text>aufg4Proc3</text>
     </name>
     <place id = "p1">
       <graphics>
-        <position x = "200"
+        <position x = "140"
                   y = "160"/>
         <dimension x = "40"
                    y = "40"/>
@@ -17,25 +17,39 @@
       <capacity>
         <text>1</text>
       </capacity>
+      <name>
+        <text>1-1</text>
+        <graphics>
+          <offset x = "0"
+                  y = "-28"/>
+        </graphics>
+      </name>
     </place>
     <place id = "p2">
       <graphics>
-        <position x = "380"
+        <position x = "80"
                   y = "80"/>
         <dimension x = "40"
                    y = "40"/>
       </graphics>
       <initialMarking>
-        <text>0</text>
+        <text>1</text>
       </initialMarking>
       <capacity>
-        <text>32767</text>
+        <text>1</text>
       </capacity>
+      <name>
+        <text>5-1</text>
+        <graphics>
+          <offset x = "0"
+                  y = "-28"/>
+        </graphics>
+      </name>
     </place>
     <place id = "p3">
       <graphics>
-        <position x = "380"
-                  y = "160"/>
+        <position x = "140"
+                  y = "340"/>
         <dimension x = "40"
                    y = "40"/>
       </graphics>
@@ -43,99 +57,68 @@
         <text>0</text>
       </initialMarking>
       <capacity>
-        <text>32767</text>
+        <text>1</text>
       </capacity>
-    </place>
-    <place id = "p4">
-      <graphics>
-        <position x = "380"
-                  y = "240"/>
-        <dimension x = "40"
-                   y = "40"/>
-      </graphics>
-      <initialMarking>
-        <text>0</text>
-      </initialMarking>
-      <capacity>
-        <text>32767</text>
-      </capacity>
-    </place>
-    <place id = "p5">
-      <graphics>
-        <position x = "200"
-                  y = "80"/>
-        <dimension x = "40"
-                   y = "40"/>
-      </graphics>
-      <initialMarking>
-        <text>2</text>
-      </initialMarking>
-      <capacity>
-        <text>2</text>
-      </capacity>
+      <name>
+        <text>2-1</text>
+        <graphics>
+          <offset x = "0"
+                  y = "-28"/>
+        </graphics>
+      </name>
     </place>
     <transition id = "t1">
       <graphics>
-        <position x = "320"
+        <position x = "140"
                   y = "80"/>
         <dimension x = "40"
                    y = "40"/>
       </graphics>
+      <name>
+        <text>4-1</text>
+        <graphics>
+          <offset x = "0"
+                  y = "-28"/>
+        </graphics>
+      </name>
     </transition>
     <transition id = "t2">
       <graphics>
-        <position x = "320"
-                  y = "160"/>
-        <dimension x = "40"
-                   y = "40"/>
-      </graphics>
-    </transition>
-    <transition id = "t3">
-      <graphics>
-        <position x = "320"
+        <position x = "140"
                   y = "240"/>
         <dimension x = "40"
                    y = "40"/>
       </graphics>
-    </transition>
-    <transition id = "t4">
-      <graphics>
-        <position x = "100"
-                  y = "160"/>
-        <dimension x = "40"
-                   y = "40"/>
-      </graphics>
+      <name>
+        <text>1-1</text>
+        <graphics>
+          <offset x = "0"
+                  y = "-28"/>
+        </graphics>
+      </name>
     </transition>
     <arc id = "a1"
+         source = "t1"
+         target = "p1"/>
+    <arc id = "a2"
+         source = "p2"
+         target = "t2">
+      <graphics>
+        <position x = "80"
+                  y = "240"/>
+      </graphics>
+    </arc>
+    <arc id = "a3"
          source = "p1"
          target = "t2"/>
-    <arc id = "a2"
-         source = "p1"
-         target = "t1"/>
-    <arc id = "a3"
-         source = "t1"
-         target = "p2"/>
     <arc id = "a4"
          source = "t2"
-         target = "p3"/>
-    <arc id = "a5"
-         source = "t3"
-         target = "p4"/>
-    <arc id = "a6"
-         source = "p1"
-         target = "t3"/>
-    <arc id = "a7"
-         source = "t4"
-         target = "p1"/>
-    <arc id = "a8"
-         source = "p5"
-         target = "t1"/>
-    <arc id = "a9"
-         source = "p5"
-         target = "t2"/>
-    <arc id = "a10"
-         source = "p5"
-         target = "t3"/>
+         target = "p3">
+      <graphics>
+        <position x = "140"
+                  y = "320"/>
+      </graphics>
+    </arc>
     <toolspecific tool = "netlab"
                   version = "1.8">
       <developer_release version = "1,8,0,0"
