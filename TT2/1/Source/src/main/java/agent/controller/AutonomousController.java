@@ -6,9 +6,10 @@ import java.util.concurrent.LinkedBlockingQueue;
 import org.lwjgl.util.Point;
 import org.openspaces.core.GigaSpace;
 
+import common.world.OccupationAreaTuple;
+
 import agent.Agent;
 import agent.Direction;
-import world.AreaTuple;
 import world.World;
 
 public class AutonomousController extends Controller {
@@ -18,17 +19,17 @@ public class AutonomousController extends Controller {
 	}
 
 	public void move() {
-		ArrayList<AreaTuple> occupied = new ArrayList<AreaTuple>();
+		ArrayList<OccupationAreaTuple> occupied = new ArrayList<OccupationAreaTuple>();
 		for(Point p : world.getOccupiedAreas(agent)){
-			occupied.add(new AreaTuple(world.getAreaIdForAreaCoord(p)));
+			occupied.add(new OccupationAreaTuple(world.getAreaIdForAreaCoord(p)));
 		}
 		
-		ArrayList<AreaTuple> toBeRemoved = new ArrayList<AreaTuple>();
-		for(AreaTuple at : blockedAreaList){
+		ArrayList<OccupationAreaTuple> toBeRemoved = new ArrayList<OccupationAreaTuple>();
+		for(OccupationAreaTuple at : blockedAreaList){
 			if(!occupied.contains(at))
 				toBeRemoved.add(at);
 		}
-		for(AreaTuple at : toBeRemoved){
+		for(OccupationAreaTuple at : toBeRemoved){
 			gigaSpace.write(at);
 			blockedAreaList.remove(at);
 		}
@@ -38,8 +39,8 @@ public class AutonomousController extends Controller {
 		if(next != null){ //agent is possibly able to move to new area
 			Integer nextAreaId = world.getAreaIdForAreaCoord(next);
 			
-			if(nextAreaId != null && (!blockedAreaList.contains(new AreaTuple(nextAreaId)))){
-				AreaTuple tt = this.gigaSpace.takeById(AreaTuple.class, nextAreaId);
+			if(nextAreaId != null && (!blockedAreaList.contains(new OccupationAreaTuple(nextAreaId)))){
+				OccupationAreaTuple tt = this.gigaSpace.takeById(OccupationAreaTuple.class, nextAreaId);
 				if(tt != null){
 					agent.moveForward();
 					blockedAreaList.add(tt);

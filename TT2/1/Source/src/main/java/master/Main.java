@@ -1,4 +1,4 @@
-package basic;
+package master;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;

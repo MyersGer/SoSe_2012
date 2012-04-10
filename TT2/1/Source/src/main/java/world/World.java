@@ -5,13 +5,16 @@ import java.util.Queue;
 import java.util.Random;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import common.IUpdateable;
+
 import org.lwjgl.util.Point;
 import org.newdawn.slick.tiled.TiledMap;
 import org.openspaces.core.GigaSpace;
 
+import common.world.OccupationAreaTuple;
+
 import tuplespace.TupleSpace;
 
-import basic.IUpdateable;
 
 import agent.Agent;
 import agent.Direction;
@@ -23,8 +26,7 @@ import agent.controller.InteractiveController;
 public class World implements IUpdateable{
 	
 	private TiledMap map;
-	private ArrayList<Agent> activeAgents = new ArrayList<Agent>();
-	private Queue<Agent> nonActiveAgents = new LinkedBlockingQueue<Agent>();
+	private ArrayList<Agent> agents = new ArrayList<Agent>();
 	private ArrayList<Integer> spawnAreas = new ArrayList<Integer>();
 	private HashMap<Integer, Point> areaIDToPointMap = new HashMap<Integer, Point>();
 	private HashMap<Point, Integer> areaPointToIDMap = new HashMap<Point, Integer>();
@@ -36,85 +38,11 @@ public class World implements IUpdateable{
 	public World(TiledMap map, int agentCount){
 		this.map = map;
 		streetLayerIndex = map.getLayerIndex("strassennetz");
-		init(agentCount);
 	}
-	
-	private void init(int agentCount){
-		 	
-		Integer areaId = 0; 
 		
-		TupleSpace tp = new TupleSpace("TileSpace");
-		gigaSpace = tp.getGigaSpace();
-	
-		//collect tiles where cars can be spawned, create mapping tileID->XY, init tuplespace 
-	
-		for(int y=0; y<map.getHeight(); y++){
-			for(int x=0; x<map.getWidth(); x++){
-				int tileId = map.getTileId(x, y, streetLayerIndex);
-				areaIDToPointMap.put(areaId, new Point(x, y)); //create mapping
-				areaPointToIDMap.put(new Point(x,y), areaId);
-				
-				//check for spawn property
-				String prop = map.getTileProperty(tileId, "spawn", "false");
-				if(prop.equals("true"))
-					spawnAreas.add(areaId);
-				
-				
-				//init tuplespace
-				gigaSpace.write(new AreaTuple(areaId));
-				
-				areaId++;
-			}
-		}
-		
-		//initialize Agents
-		for(int i=0; i<agentCount; i++){
-			
-			Agent agent = null;
-			
-			//first Agent is always Player
-			if(i==0){
-				agent = new Agent("src/main/resources/objects/car_pc.png");
-				agent.setController(new InteractiveController(this, agent, gigaSpace));
-				this.player = agent;
-			}else{
-				agent = new Agent("src/main/resources/objects/car_npc.png");
-				agent.setController(new AutonomousController(this, agent, gigaSpace));
-			}
-			
-			this.nonActiveAgents.add(agent);
-		}
-	}
-	
 	public void update(){
-		updates++;
-		if(this.updates > 200){
-			spawn();
-			this.updates = 0;
-		}
-		
-		ArrayList<Integer> removeActiveAgents = new ArrayList<Integer>();
-		for(Agent a: activeAgents){
-			a.update();
-			
-			//remove agent from active list when leaving map
-			Point agentAbsPos = a.getPosition();
-			if(agentAbsPos.getX() > map.getWidth()*map.getTileWidth() || agentAbsPos.getX() < 0){
-				nonActiveAgents.add(a);
-				removeActiveAgents.add(activeAgents.indexOf(a));
-				a.getController().reset();
-			}
-			
-			if(agentAbsPos.getY() > map.getHeight()*map.getTileHeight() || agentAbsPos.getY() < 0){
-				nonActiveAgents.add(a);
-				removeActiveAgents.add(activeAgents.indexOf(a));
-				a.getController().reset();
-			}
-		}
-
-		for(int x: removeActiveAgents){
-			activeAgents.remove(x);
-		}
+		agents.clear();
+		//TODO: agentlist aus tuplespace lesen
 	}
 	
 	private Point areaForPoint(Point p){
@@ -134,7 +62,7 @@ public class World implements IUpdateable{
 		Point agentLowerRight;
 		
 		agentUpperLeft = a.getPosition();
-		agentLowerRight = new Point(agentUpperLeft.getX()+a.getSprite().getWidth(), agentUpperLeft.getY()+a.getSprite().getHeight());
+		agentLowerRight = new Point(agentUpperLeft.getX()+a.getWidth(), agentUpperLeft.getY()+a.getHeight());
 		
 		Point area1 = areaForPoint(agentUpperLeft);
 		Point area2 = areaForPoint(agentLowerRight);
@@ -150,10 +78,9 @@ public class World implements IUpdateable{
 			Random rand = new Random(System.nanoTime());
 			int pos = rand.nextInt(this.spawnAreas.size());
 			
-			AreaTuple tt = gigaSpace.readById(AreaTuple.class, spawnAreas.get(pos));
+			OccupationAreaTuple tt = gigaSpace.readById(OccupationAreaTuple.class, spawnAreas.get(pos));
 
 			if(tt != null){
-				Agent agent = this.nonActiveAgents.poll();
 				Point area = this.areaIDToPointMap.get(this.spawnAreas.get(pos));
 				
 				int tileId = map.getTileId(area.getX(), area.getY(), streetLayerIndex);
@@ -185,9 +112,8 @@ public class World implements IUpdateable{
 		return this.player;
 	}
 	
-	
 	public ArrayList<Agent> getAgentList(){
-		return this.activeAgents;
+		return this.agents;
 	}
 	
 }

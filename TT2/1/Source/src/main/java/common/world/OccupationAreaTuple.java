@@ -1,16 +1,16 @@
-package world;
+package common.world;
 
 import com.gigaspaces.annotation.pojo.SpaceId;
 
-public class AreaTuple {
+public class OccupationAreaTuple {
 	
 	Integer areaId;
 	
-	public AreaTuple(){
+	public OccupationAreaTuple(){
 		
 	}
 	
-	public AreaTuple(Integer areaId){
+	public OccupationAreaTuple(Integer areaId){
 		this.areaId = areaId;
 	}
 	
@@ -39,7 +39,7 @@ public class AreaTuple {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AreaTuple other = (AreaTuple) obj;
+		OccupationAreaTuple other = (OccupationAreaTuple) obj;
 		if (areaId == null) {
 			if (other.areaId != null)
 				return false;

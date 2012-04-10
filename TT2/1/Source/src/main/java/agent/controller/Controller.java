@@ -8,7 +8,8 @@ import tuplespace.TupleSpace;
 import org.lwjgl.util.Point;
 import org.openspaces.core.GigaSpace;
 
-import world.AreaTuple;
+import common.world.OccupationAreaTuple;
+
 import world.World;
 import agent.Agent;
 import agent.Direction;
@@ -18,7 +19,7 @@ public abstract class Controller implements IController{
 	protected World world;
 	protected Agent agent;
 	protected GigaSpace gigaSpace;
-	protected ArrayList<AreaTuple> blockedAreaList = new ArrayList<AreaTuple>();
+	protected ArrayList<OccupationAreaTuple> blockedAreaList = new ArrayList<OccupationAreaTuple>();
 	
 	public Controller(World w, Agent a, GigaSpace gs){
 		world = w;
@@ -34,7 +35,7 @@ public abstract class Controller implements IController{
 		Integer areaId = world.getAreaIdForAreaCoord(area);
 		
 		if(areaId != null){
-			AreaTuple tt = gigaSpace.takeById(AreaTuple.class, areaId);
+			OccupationAreaTuple tt = gigaSpace.takeById(OccupationAreaTuple.class, areaId);
 			
 			if(tt != null){
 				this.blockedAreaList.add(tt);
@@ -46,7 +47,7 @@ public abstract class Controller implements IController{
 	
 	public void reset(){
 		//free occupied tiles
-		for(AreaTuple at:blockedAreaList){
+		for(OccupationAreaTuple at:blockedAreaList){
 			gigaSpace.write(at);
 		}
 		blockedAreaList.clear();

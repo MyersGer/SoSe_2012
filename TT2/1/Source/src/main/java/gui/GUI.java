@@ -1,4 +1,4 @@
-package basic;
+package gui;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,14 +25,14 @@ import agent.controller.InteractiveController;
 
 import world.World;
 
-public class SimpleGame extends BasicGame {
+public class GUI extends BasicGame {
 
 	private String map_file, mapgfx_location;
 	private TiledMap map;
 	private World world;
 	
 
-	public SimpleGame(String map_file, String mapgfx_location) {
+	public GUI(String map_file, String mapgfx_location) {
 		super("TupleSpace");
 		
 		this.map_file = map_file;
@@ -45,6 +45,7 @@ public class SimpleGame extends BasicGame {
 		map = new TiledMap(map_file, mapgfx_location);
 		world = new World(map, 20);
 		gc.setTargetFrameRate(50);
+		
 	}
 
 	@Override
@@ -82,22 +83,30 @@ public class SimpleGame extends BasicGame {
 
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 
-		//stuff we need to know
-		int tileWidth = map.getTileWidth();
-		int tileHeight = map.getTileHeight();
 		ArrayList<Agent> agents = world.getAgentList();
 
 		map.render(0, 0, 0, 0, map.getWidth(), map.getHeight());
 		
 		for(Agent agent: agents){
-			Image sprite = agent.getSprite();
-			sprite.draw(agent.getPosition().getX()+agent.getVisCorrectionX(), agent.getPosition().getY()+agent.getVisCorrectionY(), sprite.getWidth(), sprite.getHeight());
+			VisualAgent visag = new VisualAgent(agent, "src/main/resources/objects/car_npc.png", "src/main/resources/objects/car_pc.png");
+			visag.getSprite().draw(visag.getPosition().getX()+visag.getVisCorrectionX(),
+									agent.getPosition().getY()+visag.getVisCorrectionY(),
+									visag.getSprite().getWidth(),
+									visag.getSprite().getHeight());
 		}
 	}
 
 	@Override
 	public boolean closeRequested() {
 		return false;
+	}
+	
+	private void readAgents(){
+		//read Agents from TupleSpace
+	}
+	
+	private void movePlayer(){
+		//TODO: write move message to TupleSpace
 	}
 
 }

@@ -1,5 +1,6 @@
-package basic;
+package common;
 
 public interface IUpdateable {
+
 	public void update();
 }
