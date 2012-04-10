@@ -30,14 +30,16 @@ public class World implements IUpdateable{
 	private ArrayList<Integer> spawnAreas = new ArrayList<Integer>();
 	private HashMap<Integer, Point> areaIDToPointMap = new HashMap<Integer, Point>();
 	private HashMap<Point, Integer> areaPointToIDMap = new HashMap<Point, Integer>();
-	private Agent player;
-	private int updates = 499;
-	private GigaSpace gigaSpace = null;
 	private int streetLayerIndex = 0;
 	
 	public World(TiledMap map, int agentCount){
 		this.map = map;
 		streetLayerIndex = map.getLayerIndex("strassennetz");
+		init();
+	}
+	
+	public void init(){
+		//TODO: mapinformationen aus tuplespace lesen (areaidtopointmap, ...)
 	}
 		
 	public void update(){
@@ -73,6 +75,7 @@ public class World implements IUpdateable{
 		return areas;
 	}
 	
+	//TODO: spawn in agent verschieben und agentlist im tuplespace halten
 	private void spawn(){
 		if(!this.nonActiveAgents.isEmpty()){
 			Random rand = new Random(System.nanoTime());
@@ -106,10 +109,6 @@ public class World implements IUpdateable{
 				this.activeAgents.add(agent);
 			}
 		}
-	}
-	
-	public Agent getPlayer(){
-		return this.player;
 	}
 	
 	public ArrayList<Agent> getAgentList(){

@@ -24,6 +24,7 @@ public class Agent{
 	private double progress = 0;
 	private int width, height;
 	private boolean isInteractive;
+	private boolean isActive = false;
 	
 	
 	public Agent(String spriteSheet){
@@ -34,6 +35,10 @@ public class Agent{
 			velocity = 0.1;
 		if(velocity > 0.5)
 			velocity = 1;
+	}
+	
+	public boolean isActive(){
+		return this.isActive;
 	}
 	
 	public int getHeight(){
@@ -94,10 +99,6 @@ public class Agent{
 		return isInteractive;
 	}
 
-	public double getProceeding(){
-		return progress;
-	}
-	
 	public void update() {
 		if(progress > 1.1)
 			progress = 0;
