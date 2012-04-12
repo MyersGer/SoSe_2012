@@ -11,7 +11,7 @@ public class Main {
 		/*if(args[0].equals("m"))
 		else*/
 		
-		World world = new World();
+		//World world = new World();
 		Agent agent	= new Agent();
 		
 		while(true){

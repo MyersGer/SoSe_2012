@@ -51,31 +51,12 @@ public class GUI extends BasicGame {
 	@Override
 	public void update(GameContainer gc, int delta) throws SlickException {
 		//input processing
-		agent.Agent player = world.getPlayer();
-		InteractiveController controller = (InteractiveController)player.getController();
-		
 		Input in = gc.getInput();
 		
-		if (in.isKeyDown(Input.KEY_DOWN)) {
-			if(player.getDirection() == Direction.TOP_TO_BOTTOM)
-				controller.proceed();
-		} else if (in.isKeyDown(Input.KEY_UP)) {
-			if(player.getDirection() == Direction.BOTTOM_TO_TOP)
-				controller.proceed();
-		} else if (in.isKeyDown(Input.KEY_LEFT)) {
-			if(player.getDirection() == Direction.RIGHT_TO_LEFT)
-				controller.proceed();
-		} else if (in.isKeyDown(Input.KEY_RIGHT)) {
-			if(player.getDirection() == Direction.LEFT_TO_RIGHT)
-				controller.proceed();
+		if (in.isKeyDown(Input.KEY_UP)) {
+			//TODO: in tuplespace schreiben, dass agent sich bewegen soll
 		} else if (in.isKeyPressed(Input.KEY_ESCAPE)) {
 			gc.exit();
-		}
-		else if (in.isKeyPressed(Input.KEY_W)){
-			player.setVelocity(player.getVelocity()-0.1);
-		}
-		else if (in.isKeyPressed(Input.KEY_Q)){
-			player.setVelocity(player.getVelocity()+0.1);
 		}
 		
 		world.update();

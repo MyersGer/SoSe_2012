@@ -27,7 +27,11 @@ public class Agent{
 	private boolean isActive = false;
 	
 	
-	public Agent(String spriteSheet){
+	public Agent(){
+		
+	}
+	
+	public Agent(boolean isInteractive){
 		width = height = 33;
 		Random rnd = new Random(System.nanoTime());
 		velocity = rnd.nextDouble();
@@ -35,19 +39,11 @@ public class Agent{
 			velocity = 0.1;
 		if(velocity > 0.5)
 			velocity = 1;
+		
+		this.isInteractive = isInteractive;
 	}
 	
-	public boolean isActive(){
-		return this.isActive;
-	}
 	
-	public int getHeight(){
-		return this.height;
-	}
-	
-	public int getWidth(){
-		return this.width;
-	}
 	
 	public boolean spawn(Point area, Point absPos, Direction dir){
 		if(this.controller.reinit(area)){
@@ -69,6 +65,18 @@ public class Agent{
 			else if(this.direction == Direction.RIGHT_TO_LEFT)
 				this.pos.setX(pos.getX()-1);
 		}
+	}
+	
+	public boolean isActive(){
+		return this.isActive;
+	}
+	
+	public int getHeight(){
+		return this.height;
+	}
+	
+	public int getWidth(){
+		return this.width;
 	}
 
 	public Point getPosition(){
