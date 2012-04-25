@@ -26,7 +26,7 @@ public class SimpleGame extends BasicGame {
 
 		this.map_file = map_file;
 		this.mapgfx_location = mapgfx_location;
-		gigaSpace = DataGridConnectionUtility.getSpace("DrivingSpace", 1, 0);
+		gigaSpace = DataGridConnectionUtility.getSpace("space", 1, 0);
 	}
 
 	@Override

@@ -23,7 +23,7 @@ public class GUI extends BasicGame {
 	public GUI(String map_file, String mapgfx_location) {
 		super("TupleSpace");
 
-		gigaSpace = DataGridConnectionUtility.getSpace("DrivingSpace", 1, 0);
+		gigaSpace = DataGridConnectionUtility.getSpace("space", 1, 0);
 		this.map_file = map_file;
 		this.mapgfx_location = mapgfx_location;
 	}
