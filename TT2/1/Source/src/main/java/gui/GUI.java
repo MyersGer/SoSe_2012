@@ -15,6 +15,9 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
+import org.openspaces.core.GigaSpace;
+
+import common.DataGridConnectionUtility;
 
 
 import agent.Agent;
@@ -30,11 +33,13 @@ public class GUI extends BasicGame {
 	private String map_file, mapgfx_location;
 	private TiledMap map;
 	private World world;
+	private GigaSpace gigaSpace;
 	
 
 	public GUI(String map_file, String mapgfx_location) {
 		super("TupleSpace");
 		
+		gigaSpace = DataGridConnectionUtility.getSpace("DrivingSpace", 1, 0);
 		this.map_file = map_file;
 		this.mapgfx_location = mapgfx_location;
 	}

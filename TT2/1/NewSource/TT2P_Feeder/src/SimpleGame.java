@@ -7,6 +7,13 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 import org.openspaces.core.GigaSpace;
 
+import com.j_spaces.core.client.SQLQuery;
+
+import datatypes.Area;
+import datatypes.AreaDirection;
+import datatypes.AreaSide;
+import datatypes.Car;
+
 public class SimpleGame extends BasicGame {
 
 	private String map_file, mapgfx_location;
@@ -64,6 +71,7 @@ public class SimpleGame extends BasicGame {
 			}
 		}
 		gigaSpace.writeMultiple(areaArr);
+		spawnCars();
 		gc.exit();
 	}
 
@@ -79,6 +87,27 @@ public class SimpleGame extends BasicGame {
 	@Override
 	public boolean closeRequested() {
 		return false;
+	}
+	
+	private void spawnCars() {
+		// tue spawn point mal
+
+		// hohlt freien spawn point aus tuple space
+		SQLQuery<Area> spawnQuery = new SQLQuery<Area>(Area.class, "spawn=TRUE and occupiedById = '" + Area.EMPTY + "'");
+
+		Area spawnPoint;
+		spawnPoint = gigaSpace.take(spawnQuery);
+		while (spawnPoint != null) {
+			Car car = new Car(false);
+
+			spawnPoint.setOccupiedById(car.getId());
+
+			gigaSpace.write(car);
+			gigaSpace.write(spawnPoint);
+			
+			//take next spawnPoint
+			spawnPoint = gigaSpace.take(spawnQuery);
+		}
 	}
 
 }

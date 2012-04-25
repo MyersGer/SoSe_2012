@@ -1,3 +1,4 @@
+package datatypes;
 
 
 import org.lwjgl.util.Point;
@@ -6,11 +7,14 @@ import com.gigaspaces.annotation.pojo.SpaceClass;
 
 @SpaceClass
 public class Area {
+	public static final String EMPTY = "EMPTY";
+	
 	private Integer id;
 	private Point pos;
 	private AreaDirection dir;
 	private AreaSide side;
 	private boolean spawn;
+	private String occupiedById = EMPTY;
 	
 	public Area(){
 		
@@ -63,6 +67,14 @@ public class Area {
 
 	public void setSpawn(boolean spawn) {
 		this.spawn = spawn;
+	}
+
+	public String getOccupiedById() {
+		return occupiedById;
+	}
+
+	public void setOccupiedById(String occupiedById) {
+		this.occupiedById = occupiedById;
 	}
 
 	

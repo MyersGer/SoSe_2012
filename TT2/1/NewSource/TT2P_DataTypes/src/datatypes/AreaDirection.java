@@ -1,3 +1,4 @@
+package datatypes;
 
 
 public enum AreaDirection {
