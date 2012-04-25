@@ -425,32 +425,6 @@
       </graphics>
     </arc>
     <arc id = "a35"
-         source = "p9"
-         target = "t14"
-         type = "read">
-      <graphics>
-        <position x = "660"
-                  y = "280"/>
-        <position x = "660"
-                  y = "140"/>
-        <position x = "580"
-                  y = "140"/>
-      </graphics>
-    </arc>
-    <arc id = "a36"
-         source = "p9"
-         target = "t5"
-         type = "read">
-      <graphics>
-        <position x = "660"
-                  y = "280"/>
-        <position x = "660"
-                  y = "400"/>
-        <position x = "520"
-                  y = "400"/>
-      </graphics>
-    </arc>
-    <arc id = "a37"
          source = "t13"
          target = "p5">
       <graphics>
@@ -458,12 +432,41 @@
                   y = "440"/>
       </graphics>
     </arc>
-    <arc id = "a38"
+    <arc id = "a36"
          source = "p7"
          target = "t14">
       <graphics>
         <position x = "580"
                   y = "120"/>
+      </graphics>
+    </arc>
+    <arc id = "a37"
+         source = "t14"
+         target = "p9"/>
+    <arc id = "a38"
+         source = "p9"
+         target = "t14">
+      <graphics>
+        <position x = "680"
+                  y = "180"/>
+      </graphics>
+    </arc>
+    <arc id = "a39"
+         source = "t5"
+         target = "p9">
+      <graphics>
+        <position x = "640"
+                  y = "280"/>
+      </graphics>
+    </arc>
+    <arc id = "a40"
+         source = "p9"
+         target = "t5">
+      <graphics>
+        <position x = "640"
+                  y = "420"/>
+        <position x = "560"
+                  y = "380"/>
       </graphics>
     </arc>
     <toolspecific tool = "netlab"
