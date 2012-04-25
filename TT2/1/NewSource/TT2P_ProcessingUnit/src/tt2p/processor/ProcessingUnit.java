@@ -1,7 +1,11 @@
 package tt2p.processor;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import org.lwjgl.util.Point;
+import org.openspaces.core.GigaSpace;
+import org.openspaces.core.context.GigaSpaceContext;
 import org.openspaces.events.EventDriven;
 import org.openspaces.events.EventTemplate;
 import org.openspaces.events.adapter.SpaceDataEvent;
@@ -12,7 +16,9 @@ import org.openspaces.events.polling.receive.ReceiveOperationHandler;
 
 import com.j_spaces.core.client.SQLQuery;
 
+import datatypes.Area;
 import datatypes.Car;
+import datatypes.Direction;
 
 @EventDriven
 @Polling(concurrentConsumers = 6)
@@ -22,6 +28,9 @@ public class ProcessingUnit {
 	public ProcessingUnit() {
 		logger.info("Processor instantiated, waiting for cars...");
 	}
+	
+	@GigaSpaceContext
+	private GigaSpace gigaspace;
 
 	@EventTemplate
 	SQLQuery<Car> unprocessedData() {
@@ -39,7 +48,60 @@ public class ProcessingUnit {
 	@SpaceDataEvent
 	public Car execute(Car actCar) {
 		System.out.println("Car: " + actCar.getId());
+		
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//get new position
+		SQLQuery<Area> oldAreaQuery = new SQLQuery<Area>(Area.class, "occupiedById = '" + actCar.getId() + "'");
+		Area oldArea = gigaspace.take(oldAreaQuery);
+		Direction direction = actCar.getDirection();
+		Point nextPoint = getNextAreaCordsInDirection(oldArea, direction);
+		
+		//try to take empty place for that.
+		SQLQuery<Area> nextAreaQuery = new SQLQuery<Area>(Area.class, "pos.x = " + nextPoint.getX() + " and pos.y = " + nextPoint.getY() + " and occupiedById = '" + Area.EMPTY + "'");
+		Area newArea = gigaspace.take(nextAreaQuery);
+		
+		System.out.println("Car: " + actCar.getId() + " new Position: " + nextPoint.getX() + " " + nextPoint.getY());
+		if (newArea != null) {
+			actCar.setOccupiedArea(newArea.getId());
+			newArea.setOccupiedById(actCar.getId());
+			oldArea.setOccupiedById(Area.EMPTY);
+			gigaspace.write(newArea);
+			gigaspace.write(oldArea);
+		}
+		
 		return actCar;
+	}
+
+	//TODO wrap on end of coordinate space
+	protected Point getNextAreaCordsInDirection(Area from, Direction direction) {
+		Point to = null;
+
+		Point pointFrom = from.getPos();
+		switch (direction) {
+		case BOTTOM_TO_TOP:
+			to = new Point(pointFrom.getX(), pointFrom.getY() - 1);
+			break;
+		case TOP_TO_BOTTOM:
+			to = new Point(pointFrom.getX(), pointFrom.getY() + 1);
+			break;
+		case LEFT_TO_RIGHT:
+			to = new Point(pointFrom.getX() + 1, pointFrom.getY());
+			break;
+		case RIGHT_TO_LEFT:
+			to = new Point(pointFrom.getX() - 1, pointFrom.getY());
+			break;
+		default:
+			logger.warning("Car trying to move in unknown Direction, not doing anything...");
+			break;
+		}
+
+		return to;
 	}
 
 }
