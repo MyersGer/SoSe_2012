@@ -12,7 +12,7 @@
                    y = "40"/>
       </graphics>
       <initialMarking>
-        <text>0</text>
+        <text>1</text>
       </initialMarking>
       <capacity>
         <text>1</text>

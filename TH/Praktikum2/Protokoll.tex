@@ -87,13 +87,13 @@
 
 Die Weiche - die die Form einer 8 ermöglicht - wird durch eine Stelle in der Mitte der Eckstellen repräsentiert. Züge können somit eine 8 oder aber auch \glqq{}im Zickzack\grqq (1-11-7) fahren.
 
-
-
+\section{Weiche}
 		
-		
-		\subsubsection{Weiche}
-		
-		\subsubsection{Schranke und Weiche}
+		\subsection{S Invarianten}
+	
+			
+\begin{table}[H]
+\centering		
 		\begin{tabular}{|c|c|c|}
 \hline Stelle  & $W_1$ & $W_2$ \\ 
 \hline S1 & 0 & 1 \\ 
@@ -108,11 +108,59 @@ Die Weiche - die die Form einer 8 ermöglicht - wird durch eine Stelle in der Mi
 \hline S10 & 1  & 0 \\ 
 \hline S11 & 0 & 1 \\
 \hline 
-\end{tabular} 
-Wir suchen zwei Invarianten. Eine die zeigt, dass kein Zug verschwindet und keiner hinzukommt und eine die zeigt, daß die Schranke funktioniert. Wir sehen in Spalte $W_1$, dass die Stellen S9 und S10 die die Schranke darstellen im Gleicgewicht sind und jeweils immer einer 
+\end{tabular}
+\caption{S Invarianten}
+\end{table}
+Wir suchen zwei Invarianten. Eine die zeigt, dass kein Zug verschwindet und keiner hinzukommt und eine die zeigt, daß die Schranke funktioniert. 
+Wir sehen in Spalte $W_1$, dass die Stellen S9 und S10 die die Schranke darstellen im Gleichgewicht sind und jeweils immer nur eine der Positionen \verb!Schranke auf! bzw. \verb!Schranke zu! haben kann.  
+In Spalte $W_2$ sehen wir, dass die Anzahl der Züge immer gleichbleibt (wenn wir $M_0$ mitbetrachten sehen wir das es immer 2 Züge sind). 
+
+\subsection{T Invarianten}
+	\subsubsection{Wiederhohltes Schalten der Schranke}
+	Wir erwarten, das wenn die Schrankentransistionen $T_{17}$ $T_{18}$ beliebig oft aber immer beide geschaltet werden die Schranke wieder im Ursprungszustand ist. Dies können wir in der in Tabelle \ref{t:inv:schrank} gezeigten Invariante sehen. 
+	\begin{table}[H]
+	\centering	
+		\begin{tabular}{|c|c|}
+	\hline Trans.  & $W_1$\\ 
+	\hline $T_{1-16}$ & 0  \\ 
+	\hline $T_{17}$ & 1 \\ 
+	\hline $T_{18}$ & 1 \\ 
+	\hline $T_{19-26}$ & 0 \\ 
+	\hline 
+	\end{tabular}
+	\caption{T Invarianten}
+	\label{t:inv:schrank}
+	\end{table}	
+	
+\subsubsection{Vor und zurückfahren}
+	Da jeder Gleisabschnitt in beide Richtungen befahrbar ist erwarten wir, dass es T-Invarianten bei für einen Zug gibt der immer zwischen denselben beiden Gleisabschnitten hin- und herfährt. Tabelle \ref{t:inv:vorzurueck} Zeigt diese Invariante für die Transitionen $T_1$ und $T_9$ die die Stellen $S_1$ und $S_2$ in beide Richtungen verbinden. 
+	\begin{table}[H]
+	\centering	
+		\begin{tabular}{|c|c|}
+	\hline Trans.  & $W_1$\\ 
+	\hline $T_{1}$ & 1 \\
+	\hline $T_{2-8}$ & 0  \\ 
+	\hline $T_{9}$ & 1 \\ 
+	\hline $T_{10-26}$ & 0 \\ 
+	\hline 
+	\end{tabular}
+	\caption{T Invarianten}
+	\label{t:inv:vorzurueck}
+	\end{table}	
+	
+\subsection{Erreichbarkeitsgraph}
+Im Erreichbarkeitsgraph sehen wir keine Auffälligkeiten. Es sind immer genau 3 Token vorhanden von dennen sich eines in der Schranke ($T_{17}$, $T_{18}$) befindet und 2 andere auf Gleisabschnitten.
+
+\subsection{Überdeckungsgraph}
+Der Überdeckungsgraph ist für Stellen mit Kapazitäten hier gleich dem Erreichbarkeitsgraphen und wird daher nicht näher betrachtet.\\
+Es zeigen sich auch keine weiteren Auffälligkeiten wie z.B. Senken die auf Deadlocks hindeuten würden. Insofern erfüllen sich die Erwartungen die bei uns nach der Netzkonstruktion entstanden sind. Es handelt sich um eine Lebendiges Netz in dem es keine Deadlocks gibt und das im wesentlichen aus 2 Kreisläufen (Züge und Schranke) besteht.
+
+\subsection{Kondensationsgraph}
 
 
-		
+\subsection{Mehr Züge}	
+An den oben gezeigten Korrektheitseigenschaften ändert sich nichts. Die Graphen werden komplexer da mit mehr Token noch mehr Möglichkeiten bestehen. Erwartungsgemäß nehmen die Möglichkeiten verschieden Transitionen zu schalten bei bis zu 4 Zügen zu um dann ab 6 Zügen wieder abzunehmen bis bei 9 Zügen nur noch die Schranke gestellt werden werden kann da die Züge isch gegenseitig blockieren.
+
 		
 \end{document}
 
