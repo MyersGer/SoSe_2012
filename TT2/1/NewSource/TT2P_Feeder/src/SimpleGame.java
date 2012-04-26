@@ -73,6 +73,7 @@ public class SimpleGame extends BasicGame {
 				areaArr[areaId] = new Area(areaId, new Point(x, y), dir, side, spawn);
 
 				areaId++;
+				
 			}
 		}
 		gigaSpace.writeMultiple(areaArr);
@@ -112,6 +113,7 @@ public class SimpleGame extends BasicGame {
 
 			// take next spawnPoint
 			spawnPoint = gigaSpace.take(spawnQuery);
+			spawnPoint=null;
 		}
 	}
 

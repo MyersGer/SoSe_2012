@@ -22,13 +22,11 @@ import datatypes.Dimension;
 import datatypes.Direction;
 import datatypes.Movement;
 
-
 @EventDriven
 @Polling(concurrentConsumers = 6)
 public class ProcessingUnit {
 	Logger logger = Logger.getLogger(this.getClass().getName());
-	
-	
+
 	public ProcessingUnit() {
 		logger.info("Processor instantiated, waiting for cars...");
 	}
@@ -77,13 +75,13 @@ public class ProcessingUnit {
 		if (newArea != null) {
 			Movement movement = new Movement(newArea.getPos(), actCar.getId(), longTime.intValue(), actCar.getDirection(), actCar.isInteractive());
 			gigaspace.write(movement);
-			
+
 			actCar.setOccupiedArea(newArea.getId());
 			newArea.setOccupiedById(actCar.getId());
 			oldArea.setOccupiedById(Area.EMPTY);
 			gigaspace.write(newArea);
 			gigaspace.write(oldArea);
-			
+
 		}
 
 		return actCar;
@@ -96,16 +94,16 @@ public class ProcessingUnit {
 		Point pointFrom = from.getPos();
 		switch (direction) {
 		case BOTTOM_TO_TOP:
-			to = new Point(pointFrom.getX(), pointFrom.getY() - 1);
+			to = new Point(normX(pointFrom.getX()), normY(pointFrom.getY() - 1));
 			break;
 		case TOP_TO_BOTTOM:
-			to = new Point(pointFrom.getX(), pointFrom.getY() + 1);
+			to = new Point(normX(pointFrom.getX()), normY(pointFrom.getY() + 1));
 			break;
 		case LEFT_TO_RIGHT:
-			to = new Point(pointFrom.getX() + 1, pointFrom.getY());
+			to = new Point(normX(pointFrom.getX() + 1), normY(pointFrom.getY()));
 			break;
 		case RIGHT_TO_LEFT:
-			to = new Point(pointFrom.getX() - 1, pointFrom.getY());
+			to = new Point(normX(pointFrom.getX() - 1), normY(pointFrom.getY()));
 			break;
 		default:
 			logger.warning("Car trying to move in unknown Direction, not doing anything...");
@@ -114,13 +112,22 @@ public class ProcessingUnit {
 
 		return to;
 	}
-	
-	public int norm(int kor) {
+
+	public int normX(int kor) {
 		SQLQuery<Dimension> dimensionQuery = new SQLQuery<Dimension>(Dimension.class, "");
 		Dimension dimension = gigaspace.read(dimensionQuery);
 		kor = kor % dimension.getxMax();
-		if(kor < 0)
+		if (kor < 0)
 			kor = kor + dimension.getxMax();
+		return kor;
+	}
+
+	public int normY(int kor) {
+		SQLQuery<Dimension> dimensionQuery = new SQLQuery<Dimension>(Dimension.class, "");
+		Dimension dimension = gigaspace.read(dimensionQuery);
+		kor = kor % dimension.getyMax();
+		if (kor < 0)
+			kor = kor + dimension.getyMax();
 		return kor;
 	}
 

@@ -61,19 +61,22 @@ public class GUI extends BasicGame {
 		occupiedPoints = gigaSpace.readMultiple(occupiedAreaQuery);
 		for (Area occupiedPoint : occupiedPoints) {
 			SQLQuery<Car> carQuery = new SQLQuery<Car>(Car.class, "id = '" + occupiedPoint.getOccupiedById() + "'");
-			Car car = gigaSpace.read(carQuery);
-			VisualAgent visag = new VisualAgent(car.isInteractive(), car.getDirection(), occupiedPoint.getPos());
 
-			visag.getSprite().draw(visag.getPosition().getX(), visag.getPosition().getY());
+			Car car = gigaSpace.read(carQuery);
+			if (car != null) {
+				VisualAgent visag = new VisualAgent(car.isInteractive(), car.getDirection(), occupiedPoint.getPos());
+				visag.getSprite().draw(visag.getPosition().getX(), visag.getPosition().getY());
+			}
 		}
 
 	}
 
 	private void renderMovements() {
-//		SQLQuery<Movement> movementsQuery = new SQLQuery<Movement>(Movement.class, "time > 1 order by time");
+		// SQLQuery<Movement> movementsQuery = new
+		// SQLQuery<Movement>(Movement.class, "time > 1 order by time");
 		SQLQuery<Movement> movementsQuery = new SQLQuery<Movement>(Movement.class, "");
 		Movement[] movements;
-		movements = gigaSpace.readMultiple(movementsQuery);
+		movements = gigaSpace.takeMultiple(movementsQuery);
 		for (Movement movement : movements) {
 			VisualAgent visag = new VisualAgent(movement.getInteractive(), movement.getDirection(), movement.getLocation());
 
