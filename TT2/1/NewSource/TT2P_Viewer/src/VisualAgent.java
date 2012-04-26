@@ -15,8 +15,10 @@ import datatypes.Direction;
 
 public class VisualAgent {
 
-	private Car car;
-	private Area area;
+	private boolean isInteractive;
+	private Direction direction;
+	private Point postition;
+	
 	private SpriteSheet spriteSheet = null;
 	private static final Integer SPRITE_DIMENSION = 33;
 	private final static String AUTONOMOUS_AGENT_SPRITE = "maps/car_npc.png";
@@ -41,11 +43,13 @@ public class VisualAgent {
 	private final static Integer TILE_HEIGHT = 48;
 	private final static Integer TILE_WIDTH = 48;
 
-	public VisualAgent(Car car, Area area) {
-		this.car = car;
-		this.area = area;
+	public VisualAgent(boolean isInteractive, Direction direction, Point postition) {
+		this.isInteractive = isInteractive;
+		this.direction = direction;
+		this.postition = postition;
+		
 		try {
-			if (car.isInteractive()){
+			if (isInteractive){
 				spriteSheet = new SpriteSheet(VisualAgent.INTERACTIVE_AGENT_SPRITE, SPRITE_DIMENSION, SPRITE_DIMENSION, 0);
 			}else
 				{
@@ -60,35 +64,41 @@ public class VisualAgent {
 
 	public Image getSprite() {
 		Image subImage = null;
-		if (car.getDirection() == Direction.TOP_TO_BOTTOM)
+		
+		switch (direction) {
+		case TOP_TO_BOTTOM:
 			subImage = spriteSheet.getSubImage(0, 0);
-
-		else if (car.getDirection() == Direction.RIGHT_TO_LEFT)
+			break;
+		case RIGHT_TO_LEFT:
 			subImage = spriteSheet.getSubImage(0, 1);
-
-		else if (car.getDirection() == Direction.LEFT_TO_RIGHT)
+			break;
+		case LEFT_TO_RIGHT:
 			subImage = spriteSheet.getSubImage(0, 2);
-
-		else if (car.getDirection() == Direction.BOTTOM_TO_TOP)
+			break;
+		case BOTTOM_TO_TOP:
 			subImage = spriteSheet.getSubImage(0, 3);
-
+			break;
+		default:
+			break;
+		}
+		
 		return subImage;
 	}
 
 	public Point getPosition() {
-		return new Point(this.area.getPos().getX() * TILE_WIDTH + getVisCorrectionX(), this.area.getPos().getY() * TILE_HEIGHT + getVisCorrectionY());
+		return new Point(postition.getX() * TILE_WIDTH + getVisCorrectionX(), postition.getY() * TILE_HEIGHT + getVisCorrectionY());
 	}
 
 	public int getVisCorrectionY() {
 
-		if (car.getDirection() == Direction.RIGHT_TO_LEFT)
+		if (direction == Direction.RIGHT_TO_LEFT)
 			return 22;
 		else
 			return 0;
 	}
 
 	public int getVisCorrectionX() {
-		if (car.getDirection() == Direction.TOP_TO_BOTTOM)
+		if (direction == Direction.TOP_TO_BOTTOM)
 			return 17;
 		else
 			return 0;

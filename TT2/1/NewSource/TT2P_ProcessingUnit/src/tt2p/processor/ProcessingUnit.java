@@ -1,6 +1,6 @@
 package tt2p.processor;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Logger;
 
 import org.lwjgl.util.Point;
@@ -19,6 +19,7 @@ import com.j_spaces.core.client.SQLQuery;
 import datatypes.Area;
 import datatypes.Car;
 import datatypes.Direction;
+import datatypes.Movement;
 
 @EventDriven
 @Polling(concurrentConsumers = 6)
@@ -28,7 +29,7 @@ public class ProcessingUnit {
 	public ProcessingUnit() {
 		logger.info("Processor instantiated, waiting for cars...");
 	}
-	
+
 	@GigaSpaceContext
 	private GigaSpace gigaspace;
 
@@ -48,37 +49,44 @@ public class ProcessingUnit {
 	@SpaceDataEvent
 	public Car execute(Car actCar) {
 		System.out.println("Car: " + actCar.getId());
-		
+
 		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		//get new position
+
+		Date now = new Date();
+		Long longTime = new Long(now.getTime() / 1000);
+
+		// get new position
 		SQLQuery<Area> oldAreaQuery = new SQLQuery<Area>(Area.class, "occupiedById = '" + actCar.getId() + "'");
 		Area oldArea = gigaspace.take(oldAreaQuery);
 		Direction direction = actCar.getDirection();
 		Point nextPoint = getNextAreaCordsInDirection(oldArea, direction);
-		
-		//try to take empty place for that.
+
+		// try to take empty place for that.
 		SQLQuery<Area> nextAreaQuery = new SQLQuery<Area>(Area.class, "pos.x = " + nextPoint.getX() + " and pos.y = " + nextPoint.getY() + " and occupiedById = '" + Area.EMPTY + "'");
 		Area newArea = gigaspace.take(nextAreaQuery);
-		
+
 		System.out.println("Car: " + actCar.getId() + " new Position: " + nextPoint.getX() + " " + nextPoint.getY());
 		if (newArea != null) {
+			Movement movement = new Movement(newArea.getPos(), actCar.getId(), longTime.intValue(), actCar.getDirection(), actCar.isInteractive());
+			gigaspace.write(movement);
+			
 			actCar.setOccupiedArea(newArea.getId());
 			newArea.setOccupiedById(actCar.getId());
 			oldArea.setOccupiedById(Area.EMPTY);
 			gigaspace.write(newArea);
 			gigaspace.write(oldArea);
+			
 		}
-		
+
 		return actCar;
 	}
 
-	//TODO wrap on end of coordinate space
+	// TODO wrap on end of coordinate space
 	protected Point getNextAreaCordsInDirection(Area from, Direction direction) {
 		Point to = null;
 

@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-
-import org.apache.log4j.jmx.Agent;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -13,6 +10,7 @@ import com.j_spaces.core.client.SQLQuery;
 
 import datatypes.Area;
 import datatypes.Car;
+import datatypes.Movement;
 
 public class GUI extends BasicGame {
 
@@ -52,13 +50,32 @@ public class GUI extends BasicGame {
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		map.render(0, 0, 0, 0, map.getWidth(), map.getHeight());
 
-		SQLQuery<Area> occupiedAreaQuery = new SQLQuery<Area>(Area.class, "spawn=TRUE and occupiedById != '" + Area.EMPTY + "'");
+		renderMovements();
+		renderCars();
+
+	}
+
+	private void renderCars() {
+		SQLQuery<Area> occupiedAreaQuery = new SQLQuery<Area>(Area.class, "occupiedById != '" + Area.EMPTY + "'");
 		Area[] occupiedPoints;
 		occupiedPoints = gigaSpace.readMultiple(occupiedAreaQuery);
 		for (Area occupiedPoint : occupiedPoints) {
 			SQLQuery<Car> carQuery = new SQLQuery<Car>(Car.class, "id = '" + occupiedPoint.getOccupiedById() + "'");
 			Car car = gigaSpace.read(carQuery);
-			VisualAgent visag = new VisualAgent(car, occupiedPoint);
+			VisualAgent visag = new VisualAgent(car.isInteractive(), car.getDirection(), occupiedPoint.getPos());
+
+			visag.getSprite().draw(visag.getPosition().getX(), visag.getPosition().getY());
+		}
+
+	}
+
+	private void renderMovements() {
+//		SQLQuery<Movement> movementsQuery = new SQLQuery<Movement>(Movement.class, "time > 1 order by time");
+		SQLQuery<Movement> movementsQuery = new SQLQuery<Movement>(Movement.class, "");
+		Movement[] movements;
+		movements = gigaSpace.readMultiple(movementsQuery);
+		for (Movement movement : movements) {
+			VisualAgent visag = new VisualAgent(movement.getInteractive(), movement.getDirection(), movement.getLocation());
 
 			visag.getSprite().draw(visag.getPosition().getX(), visag.getPosition().getY());
 		}
@@ -69,7 +86,5 @@ public class GUI extends BasicGame {
 	public boolean closeRequested() {
 		return false;
 	}
-
-	
 
 }
