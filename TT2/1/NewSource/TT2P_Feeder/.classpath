@@ -9,7 +9,7 @@
 	<classpathentry kind="lib" path="lib/jogg-0.0.7.jar"/>
 	<classpathentry kind="lib" path="lib/jorbis-0.0.15.jar"/>
 	<classpathentry kind="lib" path="lib/log4j.jar"/>
-	<classpathentry kind="lib" path="lib/lwjgl_util.jar"/>
+	<classpathentry kind="lib" path="lib/lwjgl_util.jar" sourcepath="/home/hexren/.m2/repository/org/lwjgl/lwjgl/lwjgl_util/2.8.2/lwjgl_util-2.8.2-sources.jar"/>
 	<classpathentry kind="lib" path="lib/lwjgl.jar">
 		<attributes>
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="TT2P_Feeder/lwjgl/native/linux"/>

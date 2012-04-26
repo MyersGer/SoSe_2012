@@ -18,14 +18,17 @@ import com.j_spaces.core.client.SQLQuery;
 
 import datatypes.Area;
 import datatypes.Car;
+import datatypes.Dimension;
 import datatypes.Direction;
 import datatypes.Movement;
+
 
 @EventDriven
 @Polling(concurrentConsumers = 6)
 public class ProcessingUnit {
 	Logger logger = Logger.getLogger(this.getClass().getName());
-
+	
+	
 	public ProcessingUnit() {
 		logger.info("Processor instantiated, waiting for cars...");
 	}
@@ -110,6 +113,15 @@ public class ProcessingUnit {
 		}
 
 		return to;
+	}
+	
+	public int norm(int kor) {
+		SQLQuery<Dimension> dimensionQuery = new SQLQuery<Dimension>(Dimension.class, "");
+		Dimension dimension = gigaspace.read(dimensionQuery);
+		kor = kor % dimension.getxMax();
+		if(kor < 0)
+			kor = kor + dimension.getxMax();
+		return kor;
 	}
 
 }

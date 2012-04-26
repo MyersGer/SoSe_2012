@@ -1,3 +1,4 @@
+
 import org.lwjgl.util.Point;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -12,6 +13,7 @@ import datatypes.Area;
 import datatypes.AreaDirection;
 import datatypes.AreaSide;
 import datatypes.Car;
+import datatypes.Dimension;
 import datatypes.Direction;
 
 public class SimpleGame extends BasicGame {
@@ -40,7 +42,9 @@ public class SimpleGame extends BasicGame {
 
 		int areaId = 0;
 		// collect tiles where cars can be spawned, create mapping tileID->XY,
-		// init tuplespace
+		
+		gigaSpace.write(new Dimension(map.getWidth(), map.getHeight()));
+		
 		for (int y = 0; y < map.getHeight(); y++) {
 			for (int x = 0; x < map.getWidth(); x++) {
 				int tileId = map.getTileId(x, y, streetLayerIndex);
