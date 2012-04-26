@@ -2,7 +2,10 @@ package datatypes;
 
 import java.util.UUID;
 
+import org.lwjgl.util.Point;
+
 import com.gigaspaces.annotation.pojo.SpaceClass;
+import com.gigaspaces.annotation.pojo.SpaceRouting;
 
 @SpaceClass
 public class Car {
@@ -13,12 +16,22 @@ public class Car {
 	private boolean isActive = false;
 	private String id;
 	private Integer occupiedArea;
+	private Point position;
 	
+	public Point getPosition() {
+		return position;
+	}
+
+	public void setPosition(Point position) {
+		this.position = position;
+	}
+
 	public Car() {
 
 	}
 
-	public Car(boolean isInteractive, Direction direction, Integer occupiedArea) {
+	public Car(boolean isInteractive, Direction direction, Integer occupiedArea, Point position) {
+		this.position = position;
 		this.isInteractive = isInteractive;
 		this.direction = direction;
 		this.occupiedArea = occupiedArea;
@@ -49,6 +62,7 @@ public class Car {
 		this.isActive = isActive;
 	}
 
+	@SpaceRouting
 	public String getId() {
 		return id;
 	}

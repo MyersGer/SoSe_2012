@@ -11,8 +11,8 @@ import org.openspaces.events.EventTemplate;
 import org.openspaces.events.adapter.SpaceDataEvent;
 import org.openspaces.events.polling.Polling;
 import org.openspaces.events.polling.ReceiveHandler;
-import org.openspaces.events.polling.receive.MultiTakeReceiveOperationHandler;
 import org.openspaces.events.polling.receive.ReceiveOperationHandler;
+import org.openspaces.events.polling.receive.SingleReadReceiveOperationHandler;
 
 import com.j_spaces.core.client.SQLQuery;
 
@@ -23,7 +23,7 @@ import datatypes.Direction;
 import datatypes.Movement;
 
 @EventDriven
-@Polling(concurrentConsumers = 6)
+@Polling(concurrentConsumers = 1)
 public class ProcessingUnit {
 	Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -42,22 +42,23 @@ public class ProcessingUnit {
 
 	@ReceiveHandler
 	ReceiveOperationHandler receiveHandler() {
-		MultiTakeReceiveOperationHandler receiveHandler = new MultiTakeReceiveOperationHandler();
-		receiveHandler.setMaxEntries(50);
+//		MultiTakeReceiveOperationHandler receiveHandler = new MultiTakeReceiveOperationHandler();
+//		receiveHandler.setMaxEntries(50);
+		SingleReadReceiveOperationHandler receiveHandler = new SingleReadReceiveOperationHandler();
 		return receiveHandler;
 	}
 
 	@SpaceDataEvent
 	public Car execute(Car actCar) {
 		System.out.println("Car: " + actCar.getId());
-
+		
 		try {
-			Thread.sleep(500);
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
 		Date now = new Date();
 		Long longTime = new Long(now.getTime() / 1000);
 
@@ -77,6 +78,7 @@ public class ProcessingUnit {
 			gigaspace.write(movement);
 
 			actCar.setOccupiedArea(newArea.getId());
+			actCar.setPosition(newArea.getPos());
 			newArea.setOccupiedById(actCar.getId());
 			oldArea.setOccupiedById(Area.EMPTY);
 			gigaspace.write(newArea);

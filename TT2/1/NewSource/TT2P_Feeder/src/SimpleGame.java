@@ -104,7 +104,7 @@ public class SimpleGame extends BasicGame {
 		Area spawnPoint;
 		spawnPoint = gigaSpace.take(spawnQuery);
 		while (spawnPoint != null) {
-			Car car = new Car(false, getInitialCarDirection(spawnPoint), spawnPoint.getId());
+			Car car = new Car(false, getInitialCarDirection(spawnPoint), spawnPoint.getId(), spawnPoint.getPos());
 			
 			spawnPoint.setOccupiedById(car.getId());
 

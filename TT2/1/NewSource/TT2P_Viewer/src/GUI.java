@@ -50,21 +50,20 @@ public class GUI extends BasicGame {
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		map.render(0, 0, 0, 0, map.getWidth(), map.getHeight());
 
-		renderMovements();
+//		renderMovements();
 		renderCars();
 
 	}
 
 	private void renderCars() {
-		SQLQuery<Area> occupiedAreaQuery = new SQLQuery<Area>(Area.class, "occupiedById != '" + Area.EMPTY + "'");
-		Area[] occupiedPoints;
-		occupiedPoints = gigaSpace.readMultiple(occupiedAreaQuery);
-		for (Area occupiedPoint : occupiedPoints) {
-			SQLQuery<Car> carQuery = new SQLQuery<Car>(Car.class, "id = '" + occupiedPoint.getOccupiedById() + "'");
-
-			Car car = gigaSpace.read(carQuery);
+		System.out.println("renderCars()");
+		SQLQuery<Car> carsQuery = new SQLQuery<Car>(Car.class, "");
+		Car[] cars = gigaSpace.readMultiple(carsQuery);
+		
+		for (Car car : cars) {
+			System.out.println("car " + car.getPosition().toString());
 			if (car != null) {
-				VisualAgent visag = new VisualAgent(car.isInteractive(), car.getDirection(), occupiedPoint.getPos());
+				VisualAgent visag = new VisualAgent(car.isInteractive(), car.getDirection(), car.getPosition());
 				visag.getSprite().draw(visag.getPosition().getX(), visag.getPosition().getY());
 			}
 		}
