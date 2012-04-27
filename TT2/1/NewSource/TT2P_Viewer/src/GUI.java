@@ -1,3 +1,7 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Logger;
+
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -8,15 +12,16 @@ import org.openspaces.core.GigaSpace;
 
 import com.j_spaces.core.client.SQLQuery;
 
-import datatypes.Area;
 import datatypes.Car;
 import datatypes.Movement;
 
 public class GUI extends BasicGame {
-
+	
+	Logger logger = Logger.getLogger(this.getClass().getName());
 	private String map_file, mapgfx_location;
 	private TiledMap map;
 	private GigaSpace gigaSpace;
+	private Map<String, Movement> movementHistory = new HashMap<String, Movement>();
 
 	public GUI(String map_file, String mapgfx_location) {
 		super("TupleSpace");
@@ -50,23 +55,7 @@ public class GUI extends BasicGame {
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		map.render(0, 0, 0, 0, map.getWidth(), map.getHeight());
 
-//		renderMovements();
-		renderCars();
-
-	}
-
-	private void renderCars() {
-		System.out.println("renderCars()");
-		SQLQuery<Car> carsQuery = new SQLQuery<Car>(Car.class, "");
-		Car[] cars = gigaSpace.readMultiple(carsQuery);
-		
-		for (Car car : cars) {
-			System.out.println("car " + car.getPosition().toString());
-			if (car != null) {
-				VisualAgent visag = new VisualAgent(car.isInteractive(), car.getDirection(), car.getPosition());
-				visag.getSprite().draw(visag.getPosition().getX(), visag.getPosition().getY());
-			}
-		}
+		renderMovements();
 
 	}
 
@@ -75,13 +64,32 @@ public class GUI extends BasicGame {
 		// SQLQuery<Movement>(Movement.class, "time > 1 order by time");
 		SQLQuery<Movement> movementsQuery = new SQLQuery<Movement>(Movement.class, "");
 		Movement[] movements;
-		movements = gigaSpace.takeMultiple(movementsQuery);
-		for (Movement movement : movements) {
+		movements = gigaSpace.takeMultiple(movementsQuery, Integer.MAX_VALUE );
+		
+		buildMovementHistory(movements);
+		renderMovementHistory();
+
+	}
+
+	private void renderMovementHistory() {
+		for (Movement movement : movementHistory.values()) {
 			VisualAgent visag = new VisualAgent(movement.getInteractive(), movement.getDirection(), movement.getLocation());
 
 			visag.getSprite().draw(visag.getPosition().getX(), visag.getPosition().getY());
 		}
 
+	}
+
+	private void buildMovementHistory(Movement[] movements) {
+		for (Movement movement : movements) {
+			Movement carMovementFromHistory = movementHistory.get(movement.getCarId());
+			// insert first movement, update others for a car
+			if (!movementHistory.containsKey(movement.getCarId())) {
+				movementHistory.put(movement.getCarId(), movement);
+			} else if (carMovementFromHistory.getTime() < movement.getTime()) {
+				movementHistory.put(movement.getCarId(), movement);
+			}
+		}
 	}
 
 	@Override

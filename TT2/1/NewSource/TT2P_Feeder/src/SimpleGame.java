@@ -78,6 +78,7 @@ public class SimpleGame extends BasicGame {
 		}
 		gigaSpace.writeMultiple(areaArr);
 		spawnCars();
+		
 		gc.exit();
 	}
 
@@ -113,7 +114,6 @@ public class SimpleGame extends BasicGame {
 
 			// take next spawnPoint
 			spawnPoint = gigaSpace.take(spawnQuery);
-			spawnPoint=null;
 		}
 	}
 
