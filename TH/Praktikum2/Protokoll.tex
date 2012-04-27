@@ -57,7 +57,7 @@
 
 %	\listoftables                                 												% 
 	\listoffigures  
-	\lstlistoflistings	
+%	\lstlistoflistings	
 
 \section{Aufgabe 1}
 	\begin{figure}[H]
@@ -66,7 +66,7 @@
         \label{img:aufg1}
 	\end{figure}
 	
-	Hier repräsentiert jeder Token einen Zug, der jeweils in beide Richtungen von Gleisabschnitt (Stelle) zu Gleisabschnitt (Stelle) fahren können, sofern in dem betreffenden Abschnitt noch kein Zug vorhanden ist.
+	Hier repräsentiert jeder Token einen Zug, der jeweils in beide Richtungen von Gleisabschnitt (Stelle) zu Gleisabschnitt (Stelle) fahren können, sofern in dem betreffenden Abschnitt noch kein Zug vorhanden ist. Die Eigenschaft eines Zuges exklusiv einen Gleisabschnitt zu besetzen, haben wir über Kapazitäten der Stellen modelliert.
 	
 \section{Aufgabe 2}
 	\subsection{Schranke}	
@@ -156,10 +156,10 @@ Der Überdeckungsgraph ist für Stellen mit Kapazitäten hier gleich dem Erreich
 Es zeigen sich auch keine weiteren Auffälligkeiten wie z.B. Senken die auf Deadlocks hindeuten würden. Insofern erfüllen sich die Erwartungen die bei uns nach der Netzkonstruktion entstanden sind. Es handelt sich um eine Lebendiges Netz in dem es keine Deadlocks gibt und das im wesentlichen aus 2 Kreisläufen (Züge und Schranke) besteht.
 
 \subsection{Kondensationsgraph}
-
+Der Kondensationsgraph zeigt nur einen Knoten, da bei der von uns gewählten Modellierung alle Knoten eine starke Verbindung aufweisen. Wir schließen daraus, dass ein Zug alle Schienenabschnitte erreichen kann. 
 
 \subsection{Mehr Züge}	
-An den oben gezeigten Korrektheitseigenschaften ändert sich nichts. Die Graphen werden komplexer da mit mehr Token noch mehr Möglichkeiten bestehen. Erwartungsgemäß nehmen die Möglichkeiten verschieden Transitionen zu schalten bei bis zu 4 Zügen zu um dann ab 6 Zügen wieder abzunehmen bis bei 9 Zügen nur noch die Schranke gestellt werden werden kann da die Züge isch gegenseitig blockieren.
+An den oben gezeigten Korrektheitseigenschaften ändert sich nichts. Die Graphen werden komplexer da mit mehr Token noch mehr Möglichkeiten bestehen. Erwartungsgemäß nehmen die Möglichkeiten verschieden Transitionen zu schalten bei bis zu 4 Zügen zu um dann ab 6 Zügen wieder abzunehmen bis bei 9 Zügen nur noch die Schranke gestellt werden werden kann da die Züge sich gegenseitig blockieren.
 
 		
 \end{document}
