@@ -1,6 +1,5 @@
 package datatypes;
 
-
 import org.lwjgl.util.Point;
 
 import com.gigaspaces.annotation.pojo.SpaceClass;
@@ -9,24 +8,29 @@ import com.gigaspaces.annotation.pojo.SpaceClass;
 public class Area {
 	public static final String EMPTY = "EMPTY";
 	
+	public static final Integer NO_JUNCTION = -1;
+
 	private Integer id;
 	private Point pos;
 	private AreaDirection dir;
 	private AreaSide side;
 	private boolean spawn;
 	private String occupiedById = EMPTY;
+	private boolean junction;
+	private Integer juncId = NO_JUNCTION;
 	
-	public Area(){
-		
+	public Area() {
+
 	}
 
-	public Area(Integer id, Point pos, AreaDirection dir, AreaSide side, boolean spawn) {
+	public Area(Integer id, Point pos, AreaDirection dir, AreaSide side, boolean spawn, boolean junction) {
 		super();
 		this.id = id;
 		this.pos = pos;
 		this.dir = dir;
 		this.side = side;
 		this.spawn = spawn;
+		this.junction = junction;
 	}
 
 	public Integer getId() {
@@ -77,5 +81,20 @@ public class Area {
 		this.occupiedById = occupiedById;
 	}
 
-	
+	public boolean isJunction() {
+		return junction;
+	}
+
+	public void setJunction(boolean junction) {
+		this.junction = junction;
+	}
+
+	public Integer getJuncId() {
+		return juncId;
+	}
+
+	public void setJuncId(Integer juncId) {
+		this.juncId = juncId;
+	}
+
 }

@@ -20,6 +20,7 @@ import datatypes.Area;
 import datatypes.Car;
 import datatypes.Dimension;
 import datatypes.Direction;
+import datatypes.Junction;
 import datatypes.Movement;
 
 @EventDriven
@@ -59,39 +60,94 @@ public class ProcessingUnit {
 			e.printStackTrace();
 		}
 
-		Date now = new Date();
-		Long longTime = new Long(now.getTime() / 1000);
+		boolean areaAvaiable = false;
+		boolean junctionAvailable = false;
 
 		// get new position
 		SQLQuery<Area> oldAreaQuery = new SQLQuery<Area>(Area.class, "id = '" + actCar.getOccupiedArea() + "'");
 		Area oldArea = gigaspace.take(oldAreaQuery);
 		if (oldArea != null) {
-			Direction direction = actCar.getDirection();
-			Point nextPoint = getNextAreaCordsInDirection(oldArea, direction);
 
-			// try to take empty place for that.
-			SQLQuery<Area> nextAreaQuery = new SQLQuery<Area>(Area.class, "pos.x = " + nextPoint.getX() + " and pos.y = " + nextPoint.getY() + " and occupiedById = '" + Area.EMPTY + "'");
-			Area newArea = gigaspace.take(nextAreaQuery);
+			Area newArea = getNewArea(actCar, oldArea);
+			// can movement be made ?
+			areaAvaiable = nextAreaAvailable(newArea);
+			junctionAvailable = junctionAvailable(newArea, actCar);
 
-			System.out.println("Car: " + actCar.getId() + " new Position: " + nextPoint.getX() + " " + nextPoint.getY());
-			if (newArea != null) {
-				Movement movement = new Movement(newArea.getPos(), actCar.getId(), longTime.intValue(), actCar.getDirection(), actCar.isInteractive());
-				gigaspace.write(movement);
-
-				actCar.setOccupiedArea(newArea.getId());
-				actCar.setPosition(newArea.getPos());
-				newArea.setOccupiedById(actCar.getId());
-				oldArea.setOccupiedById(Area.EMPTY);
-				gigaspace.write(newArea);
-
-			} else {
-				System.out.println("Could not Take new space");
+			if (areaAvaiable && junctionAvailable) {
+				moveCar(actCar, newArea);
+				emptyOldFields(oldArea, newArea);
 			}
+			if (newArea != null) {
+				gigaspace.write(newArea);
+			}
+
 			gigaspace.write(oldArea);
 		} else {
 			System.out.println("Could not take old area");
 		}
 		return actCar;
+	}
+
+	private void emptyOldFields(Area oldArea, Area newArea) {
+
+		oldArea.setOccupiedById(Area.EMPTY);
+		if (oldArea.isJunction() && oldArea.getJuncId() != newArea.getJuncId()) {
+			SQLQuery<Junction> junctionQuery = new SQLQuery<Junction>(Junction.class, "id = " + oldArea.getJuncId());
+			Junction junction = gigaspace.take(junctionQuery);
+			junction.setOccupiedById(Junction.EMPTY);
+			gigaspace.write(junction);
+		}
+	}
+
+	private void moveCar(Car actCar, Area newArea) {
+		Date now = new Date();
+		Long longTime = new Long(now.getTime() / 1000);
+		Movement movement = new Movement(newArea.getPos(), actCar.getId(), longTime.intValue(), actCar.getDirection(), actCar.isInteractive());
+		actCar.setOccupiedArea(newArea.getId());
+		actCar.setPosition(newArea.getPos());
+		newArea.setOccupiedById(actCar.getId());
+		gigaspace.write(movement);
+	}
+
+	private boolean junctionAvailable(Area newArea, Car actCar) {
+		boolean junctionAvaiable = false;
+		if (newArea == null)
+			return junctionAvaiable;
+
+		if (newArea.isJunction()) {
+			SQLQuery<Junction> junctionQuery = new SQLQuery<Junction>(Junction.class, "id = " + newArea.getJuncId() + " and ( occupiedById = '" + Junction.EMPTY + "' or occupiedById = '"
+					+ actCar.getId() + "')");
+			Junction junction = gigaspace.take(junctionQuery);
+			if (junction != null) {
+				junction.setOccupiedById(actCar.getId());
+				gigaspace.write(junction);
+				junctionAvaiable = true;
+			}
+
+		} else {
+			junctionAvaiable = true;
+		}
+		return junctionAvaiable;
+
+	}
+
+	private boolean nextAreaAvailable(Area newArea) {
+		if (newArea != null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	private Area getNewArea(Car actCar, Area oldArea) {
+		Direction direction = actCar.getDirection();
+		Point nextPoint = getNextAreaCordsInDirection(oldArea, direction);
+
+		// try to take empty place for that.
+		SQLQuery<Area> nextAreaQuery = new SQLQuery<Area>(Area.class, "pos.x = " + nextPoint.getX() + " and pos.y = " + nextPoint.getY() + " and ( occupiedById = '" + Area.EMPTY
+				+ "' or occupiedById = '" + actCar.getId() + "')");
+		Area newArea = gigaspace.take(nextAreaQuery);
+		return newArea;
 	}
 
 	protected Point getNextAreaCordsInDirection(Area from, Direction direction) {
