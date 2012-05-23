@@ -205,5 +205,39 @@ Das Netz ist nicht Deadlockfrei. Die Schaltreihenfolge $t2 \rightarrow t3 \right
             	\label{petri:aufg3}
 			\end{figure}
 
-\end{document}
+\section{Aufgabe 4}
+	\begin{figure}[H]
+    			\centering
+				\includegraphics[scale=0.5]{aufg4.png}		
+            	\caption{Aufgabe 4 Petri Netz}
+            	\label{petri:aufg4}
+			\end{figure}
+	\begin{align*}
+		pre = \begin{pmatrix} N/A & T1 & T2 \\
+						 S1 & 1 & 0 \\
+						 S2 & 0 & 1 \\
+						 S3 & 0 & 0 \\
+						 S4 & 1 & 0 \end{pmatrix}\\ 	
+		post = \begin{pmatrix} N/A & T1 & T2 \\
+						 S1 & 0 & 1 \\
+						 S2 & 1 & 0 \\
+						 S3 & 0 & 0 \\
+						 S4 & 0 & 1 \end{pmatrix}\\
+		invarianz = \begin{pmatrix}
+						 -1 & 1 \\
+						 1 & -1 \\
+						 0 & 0 \\
+						 -1 & 1 \end{pmatrix}\\
+		\textit{S-Invarianten} = (I^T \cdotp I_p = \overrightarrow{0}) = \begin{pmatrix}
+						 -1 & 1 & 0 & -1\\
+						 1 & -1 &0 & 1\end{pmatrix}
+		\cdot I_p = \overrightarrow{0}\\ 
+		\textit{Durch scharfes hinsehen ergibt sich die relevante Lösung und damit S Invariante} = \begin{pmatrix} 
+						 1 \\
+						 2\\
+						 0\\
+						 1\end{pmatrix}				 		 				  				 			
+	\end{align*}
 
+
+\end{document}
