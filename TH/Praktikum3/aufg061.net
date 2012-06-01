@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1"?><pnml xmlns = "http://www.irt.rwth-aachen.de/download/netlab/pntd/pnsmNet">
+  <net id = "n1"
+       type = "http://www.irt.rwth-aachen.de/download/netlab/pntd/pnsmNet">
+    <name>
+      <text>aufg061</text>
+    </name>
+    <place id = "p1">
+      <graphics>
+        <position x = "140"
+                  y = "120"/>
+        <dimension x = "40"
+                   y = "40"/>
+      </graphics>
+      <initialMarking>
+        <text>0</text>
+      </initialMarking>
+      <capacity>
+        <text>1</text>
+      </capacity>
+    </place>
+    <toolspecific tool = "netlab"
+                  version = "1.8">
+      <developer_release version = "1,8,0,0"
+                         build = "3381"
+                         svn_revision = "419"
+                         year = "2007"
+                         month = "06"
+                         day = "22"/>
+      <view xmlns = "http://www.irt.rwth-aachen.de/download/netlab"
+            zoom = "100"
+            grid = "true"
+            numbering = "true"
+            names = "false"
+            description = "true"
+            colored_invariants = "true">
+        <scrollerposition x = "0"
+                          y = "0"/>
+      </view>
+      <calculation xmlns = "http://www.irt.rwth-aachen.de/download/netlab"
+                   autocalculate_invariants = "false"
+                   firing_rule = "strong"/>
+      <petrinetstatemodel self_loops = "true"
+                          io_extensions = "true"
+                          test_arcs = "allowed_at_all_nodes"
+                          inhibitor_arcs = "allowed_at_input_nodes"/>
+    </toolspecific>
+  </net>
+</pnml>
