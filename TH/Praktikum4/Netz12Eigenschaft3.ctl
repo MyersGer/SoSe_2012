@@ -1,4 +1,7 @@
-A(A(AF(h2 == 1) U Bit1 == 1) U Bit0 == 0);
-/*Irgendwann bevor Bit1 1 wird und Bit0 0 wird
-wird h2 == 1 wordurch uebrXOR1 ein in h1 
-wartendes Bit weggerauemt wird*/
+Bit1 == 1 -> EF(h3 == 1 & EX(Bit0 == 1));
+
+
+/*
+wenn Bit1 dann gibt es eine Zukunft in der h3 
+ack bit gesendet wird danach wird dann Bit0=1 gesendet
+*/
