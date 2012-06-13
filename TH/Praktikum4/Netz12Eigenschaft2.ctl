@@ -1,2 +1,3 @@
-A(EF(Message_0 == 1) U Sender_1 == 0);
-/*Solange Bit0 1 ist (naemlich nicht 0) gibt es immer einen Weg um 0 zu senden (h2)*/
+AG(Sender_0 -> (nomore_Lost_Mess_0 |  Message_0) ) & AG(Sender_1 ->  !Sender_0);
+/*Immer wenn Sender 0 geich 1 ist kann ich eine nachricht senden oder haben grade eine gesendet und
+wenn ich Sender_1 habe kann ich nie eine Message0 senden.*/
